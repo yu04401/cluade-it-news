@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ITニュース朝刊</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Kaku+Gothic+New:wght@700;900&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* 1カラムの読み物。左に順位、右に本文。上部にカテゴリ絞り込み */
+:root {
+  --bg: #f2f4f7;
+  --surface: #ffffff;
+  --ink: #16202a;
+  --muted: #5a6572;
+  --line: #dce1e8;
+  --accent: #1f5fbf;
+  --accent-soft: #e4ecf8;
+  --c-ai: #7445d1;
+  --c-sec: #c2402b;
+  --c-cloud: #17807f;
+  --c-hw: #9a6510;
+  --c-biz: #3b6d2d;
+  --c-dev: #1f5fbf;
+  --c-other: #6b7480;
+  --f-display: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --f-body: "BIZ UDPGothic", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1318; --surface: #151c23; --ink: #e4e9ef; --muted: #96a2ae; --line: #252f39;
+    --accent: #72a6f3; --accent-soft: #1b2a3f;
+    --c-ai: #a98cf2; --c-sec: #f08672; --c-cloud: #5cc6c4; --c-hw: #e2ab4f; --c-biz: #8cc475; --c-dev: #72a6f3; --c-other: #9aa4ae;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1318; --surface: #151c23; --ink: #e4e9ef; --muted: #96a2ae; --line: #252f39;
+  --accent: #72a6f3; --accent-soft: #1b2a3f;
+  --c-ai: #a98cf2; --c-sec: #f08672; --c-cloud: #5cc6c4; --c-hw: #e2ab4f; --c-biz: #8cc475; --c-dev: #72a6f3; --c-other: #9aa4ae;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 15px;
+  line-height: 1.75;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+}
+.wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+
+header { display: flex; flex-direction: column; gap: 10px; }
+.eyebrow {
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em;
+  color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 14px;
+}
+.eyebrow b { color: var(--accent); font-weight: 700; }
+h1 {
+  font-family: var(--f-display); font-weight: 900; font-size: clamp(30px, 7vw, 44px);
+  line-height: 1.15; margin: 0; letter-spacing: .01em; text-wrap: balance;
+}
+.trend {
+  margin: 4px 0 0; padding: 12px 14px; background: var(--accent-soft);
+  border-radius: 8px; font-size: 15px; line-height: 1.7;
+}
+.trend span { font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; color: var(--accent); display: block; margin-bottom: 2px; }
+
+.filters { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+.filters::-webkit-scrollbar { display: none; }
+.chip {
+  flex: none; font: 700 13px/1 var(--f-body); color: var(--muted);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+  padding: 8px 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
+}
+.chip i { width: 8px; height: 8px; border-radius: 50%; background: var(--dot, var(--muted)); }
+.chip .n { font-family: var(--f-mono); font-size: 11px; font-weight: 500; }
+.chip[aria-pressed="true"] { color: var(--surface); background: var(--ink); border-color: var(--ink); }
+.chip[aria-pressed="true"] i { background: var(--surface); }
+.chip:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+ol.news { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.item { display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding: 20px 18px; border-top: 1px solid var(--line); }
+.item:first-child { border-top: 0; }
+.rank { font-family: var(--f-mono); font-weight: 700; font-size: 22px; line-height: 1.2; color: var(--muted); font-variant-numeric: tabular-nums; }
+.item:nth-child(-n+3) .rank { color: var(--accent); }
+.body { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; font-size: 12px; color: var(--muted); }
+.cat { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; color: var(--dot); }
+.cat::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dot); }
+.date { font-family: var(--f-mono); font-size: 11.5px; }
+h2 { font-family: var(--f-display); font-weight: 700; font-size: 18px; line-height: 1.45; margin: 0; text-wrap: balance; overflow-wrap: anywhere; }
+h2 a { color: inherit; text-decoration: none; }
+h2 a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+.sum { margin: 0; overflow-wrap: anywhere; }
+.why { margin: 2px 0 0; font-size: 13.5px; color: var(--muted); padding-left: 10px; border-left: 2px solid var(--line); }
+.why b { color: var(--ink); font-weight: 700; }
+.src { font-size: 12.5px; }
+.src a { color: var(--accent); text-decoration: none; overflow-wrap: anywhere; }
+.src a:hover { text-decoration: underline; }
+
+.empty { padding: 40px 22px; text-align: left; display: flex; flex-direction: column; gap: 8px; }
+.empty strong { font-family: var(--f-display); font-size: 18px; }
+.empty p { margin: 0; color: var(--muted); }
+
+footer { font-size: 12px; color: var(--muted); line-height: 1.7; }
+@media (max-width: 480px) {
+  .item { grid-template-columns: 30px 1fr; gap: 10px; padding: 18px 14px; }
+  .rank { font-size: 18px; }
+  h2 { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+<script type="application/json" id="news-data">{"date": "2026-11-03", "generated_at": "2026-11-03T12:55+09:00", "trend": "GMOのRDP経由の攻撃やクラブツーリズム・アットコスメの大規模漏えいなど国内インシデントが相次ぎ、Binanceの巨額窃盗も重なってセキュリティ一色の週明けとなった。AI分野では利用枠の統合・再編やAI学習可否の新しいrobots.txt指定など、使い方とルール作りの見直しが進んでいる。", "items": [{"rank": 1, "category": "セキュリティ", "title": "お名前.com デスクトップクラウドへの攻撃、RDPのドライブ共有経由で利用者PCまで侵害", "summary": "GMOインターネットの「お名前.com デスクトップクラウド」が攻撃を受け、RDPのドライブ共有機能を悪用して接続元である利用者PCのファイル閲覧やバックドア設置が可能な状態になっていた。影響VPSには取引ツールのログイン情報最大26,739件が保存されており、GMOは利用者にPCのネットワーク切断を求めている。11月2日には熊谷代表が会見で改めて謝罪した。", "why": "RDPのドライブ/クリップボードのリダイレクトを既定で許可していると、接続先の侵害が手元PCに波及し得るため、社内のリモートデスクトップ設定も見直す価値がある。", "source": "INTERNET Watch", "url": "https://internet.watch.impress.co.jp/docs/news/2152904.html", "published": "2026-11-02"}, {"rank": 2, "category": "セキュリティ", "title": "FBI、Binanceの約63億ドル暗号資産窃盗を北朝鮮「TraderTraitor」の犯行と断定", "summary": "10月29日ごろにBinanceのグローバルなホットウォレットから60億ドル超（Binance発表では約63億ドル）の暗号資産が盗まれ、FBIは10月31日に北朝鮮系グループTraderTraitorによるものと発表した。資金の多くはETHに換えられ、DeFiや即時交換サービスで洗浄されるとみられる。Binance Japanの顧客資産はコールドウォレットで分別管理されており影響はないという。", "why": "開発者や運用担当を狙うソーシャルエンジニアリングで知られるグループで、署名鍵やCI/CDへのアクセス管理の重要性を改めて示した。", "source": "ITmedia NEWS", "url": "https://www.itmedia.co.jp/news/article/2611/02/2000002778/", "published": "2026-11-02"}, {"rank": 3, "category": "開発", "title": "GitHub「Copilot Fusion」正式リリース、タスクに応じてAIモデルを自動で使い分け", "summary": "GitHub Universe 2026で、作業内容に合わせて1つまたは複数のモデルを組み合わせる「Copilot Fusion」が正式リリースされた。安価なモデルの下書きを検証役が確認して必要時に上位モデルへ引き上げる「Cascade」、別系統のモデルがレビューする「Critique」などのパターンと、Standard/High/Maxの強度を選べる。プレビューではローカルのMAI Code 1.1 FlashやQwen3.8 Flash Nextでの実行も可能になった。", "why": "モデル選択を人が悩まずに済み、トークン消費とコードの品質のバランスをCopilot側で最適化できる。", "source": "Publickey", "url": "https://www.publickey1.jp/blog/26/githubcopilot_fusionaigithub_universe_2026.html", "published": "2026-11-02"}, {"rank": 4, "category": "AI", "title": "OpenAI、12月からChatGPTとCodexの利用枠を共通化　ChatとWorkタブも統合へ", "summary": "OpenAIは2026年12月から、Plus・Pro・BusinessでChatGPTとCodexの利用枠をトークン単位で共有する。Instantモードでの会話は対象外で、残量やリセット時刻は設定の「使用状況」で確認できる。あわせてデスクトップアプリのChatとWorkタブを1つにまとめる計画も明らかになり、Codexは別の画面として残る。", "why": "Codexを日常的に使う開発者は、チャット利用分と枠を取り合うことになり、使い方の見直しが必要になる。", "source": "gihyo.jp", "url": "https://gihyo.jp/article/2026/11/chatgpt-and-codex-usage-limits", "published": "2026-11-02"}, {"rank": 5, "category": "AI", "title": "robots.txtでAI学習の可否を一括指定する新方式、OpenAI・Google・Microsoftが対応へ", "summary": "robots.txtに「User-Agent: __usage_ai-training」ブロックを書き、Disallow/AllowでAI学習への利用可否を示す方式「Machine-Readable Training Preference Signal」のドラフトが公開された。OpenAIは数か月以内、Googleは2027年初め、Microsoftは2027年2月1日から適用する予定で、Anthropicも実装を始めている。クロール自体の可否は従来どおりクローラーごとの設定で制御する。", "why": "サイト運営側はクローラー名を個別に列挙せずに学習利用だけを拒否できるようになり、自社サイトやドキュメントの方針を整理しやすくなる。", "source": "gihyo.jp", "url": "https://gihyo.jp/article/2026/11/robots-txt-ai-training-controls", "published": "2026-11-02"}, {"rank": 6, "category": "セキュリティ", "title": "クラブツーリズムに不正アクセス、最大約432万件の個人情報漏えいの恐れでサイト停止", "summary": "クラブツーリズムは10月30日早朝に不正アクセスを検知し、オンライン予約会員の氏名・住所・電話番号・生年月日など最大約432万件が漏えいした可能性があると発表した。パスワードやパスポート、カード情報は含まれないとしている。サーバーを隔離して調査を続けており、Webサイトは停止中。同日にはアットコスメの約300万人分の漏えい発表も重なった。", "why": "国内で数百万件規模の漏えいが連日続いており、会員DBを持つサービスでは検知と隔離の手順を点検しておきたい。", "source": "ITmedia NEWS", "url": "https://www.itmedia.co.jp/news/article/2611/02/2000002782/", "published": "2026-11-02"}, {"rank": 7, "category": "セキュリティ", "title": "温度監視ツール「Core Temp」のカーネルドライバに脆弱性、物理メモリの読み書きが可能に", "summary": "JVNは、Windows向けCPU温度監視ツールCore Tempのv1.21より前のカーネルドライバで、IOCTLインタフェースのアクセス制御が不十分な脆弱性（CVE-2026-109836）を公表した。悪用には高い権限でのローカルアクセスが必要だが、物理メモリを読み書きされる恐れがあり、CVSS v4.0は8.4。v1.21以降への更新が推奨されている。", "why": "正規署名済みの脆弱なドライバはBYOVD攻撃に使われやすく、開発機や検証機に入れたままのハードウェア監視ツールも更新対象になる。", "source": "JVN", "url": "https://jvn.jp/jp/JVN23328936/", "published": "2026-11-02"}, {"rank": 8, "category": "AI", "title": "Anthropic、Claudeの「Max 20x」を「Ultra」に改称し5時間ごとの利用制限を撤廃", "summary": "Anthropicは月200ドルの「Max 20x」を「Ultra」、月100ドルの「Max 5x」を「Max」に名称変更した。Ultraは認証済みアカウントで5時間ごとの利用制限がなくなり、週単位でProの10倍を使える。両プランとも上位モデル「Fable」を週の上限の最大50%まで使え、Claude Platform向けAPIクレジット（Max 100ドル、Ultra 200ドル）も毎月付く。", "why": "長時間のエージェント作業やコーディングで5時間枠に止められる問題が解消され、Claude Codeなどを使う開発者の実務に直接効く。", "source": "ITmedia NEWS", "url": "https://www.itmedia.co.jp/news/article/2611/02/2000002777/", "published": "2026-11-02"}, {"rank": 9, "category": "ビジネス", "title": "Reddit、ログイン必須化へ　広告精度の向上とAIボット排除が狙い", "summary": "RedditのSteve Huffman CEOは株主向けレターで、ログインした利用者向けの体験に一本化する方針を示した。第4四半期に米国外の一部市場で試験を始め、結果を見て全世界での展開を決める。広告ターゲティングの精度向上と、AI学習目的でデータを集めるボットの制限を理由に挙げている。", "why": "技術的な調べものでRedditの検索結果に頼る場面は多く、未ログインでの閲覧やスクレイピングを前提にしたツールにも影響が出る可能性がある。", "source": "INTERNET Watch", "url": "https://internet.watch.impress.co.jp/docs/yajiuma/2153000.html", "published": "2026-11-02"}, {"rank": 10, "category": "ハード", "title": "使われていないNPUでWindowsのデスクトップを描画する研究用ドライバ「npu-render」が公開", "summary": "labscommunityは、DWMがGPUに送るDirect3D描画命令を横取りしてIntel NPU上で実行する研究用ドライバ「npu-render」をApache License 2.0で公開した。アプリやDWMからは通常のDirect3D 10デバイスに見え、出力はCPU参照実装とピクセル単位で一致する。ただしPanther Lakeノートでも画面更新は毎秒2〜3回にとどまり、実用にはほど遠い。", "why": "Windowsのディスプレイドライバモデルの上でNPUを汎用的な計算資源として扱う実例として、ドライバ開発やNPU活用を考える組み込み・Windows開発者の参考になる。", "source": "PC Watch", "url": "https://pc.watch.impress.co.jp/docs/news/2152950.html", "published": "2026-11-02"}]}</script>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow" id="eyebrow"><b>IT DAILY</b><span id="dateLabel">—</span><span id="genLabel"></span></div>
+    <h1>ITニュース朝刊</h1>
+    <p class="trend" id="trend" hidden><span>TODAY'S TREND</span><em id="trendText" style="font-style:normal"></em></p>
+  </header>
+
+  <nav class="filters" id="filters" aria-label="カテゴリで絞り込み"></nav>
+
+  <ol class="news" id="list"></ol>
+
+  <footer>
+    <a href="archive.html" style="color:var(--accent)">過去の号を見る</a><br>
+    毎朝6時に国内外のIT・テック系ニュースから重要度の高い10件を選び、要約して更新しています。要約はAIによるもので、詳細や正確な数値は各リンク先の元記事で確認してください。
+  </footer>
+</div>
+
+<script>
+(function () {
+  var CATS = {
+    "AI": "--c-ai", "セキュリティ": "--c-sec", "クラウド": "--c-cloud",
+    "ハード": "--c-hw", "ビジネス": "--c-biz", "開発": "--c-dev", "その他": "--c-other"
+  };
+  var data;
+  try { data = JSON.parse(document.getElementById("news-data").textContent); }
+  catch (e) { data = { items: [] }; }
+  var items = (data.items || []).slice().sort(function (a, b) { return (a.rank || 99) - (b.rank || 99); });
+
+  var WD = ["日", "月", "火", "水", "木", "金", "土"];
+  function fmtDate(s) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s || "");
+    if (!m) return "";
+    var d = new Date(+m[1], +m[2] - 1, +m[3]);
+    return m[1] + "." + m[2] + "." + m[3] + " (" + WD[d.getDay()] + ")";
+  }
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function dotVar(cat) { return "var(" + (CATS[cat] || "--c-other") + ")"; }
+
+  document.getElementById("dateLabel").textContent = fmtDate(data.date) || "初回更新待ち";
+  var g = /T(\d{2}:\d{2})/.exec(data.generated_at || "");
+  if (g) document.getElementById("genLabel").textContent = g[1] + " 更新";
+  if (data.trend) {
+    document.getElementById("trendText").textContent = data.trend;
+    document.getElementById("trend").hidden = false;
+  }
+
+  var list = document.getElementById("list");
+  var filters = document.getElementById("filters");
+
+  if (!items.length) {
+    filters.hidden = true;
+    var li = el("li", "empty");
+    li.appendChild(el("strong", null, "最初の号を準備中です"));
+    li.appendChild(el("p", null, "毎朝6時に、その日のITニュース上位10件がここに並びます。カテゴリ別に絞り込み、見出しから元記事に移動できます。"));
+    list.appendChild(li);
+    return;
+  }
+
+  items.forEach(function (it, i) {
+    var li = el("li", "item");
+    li.dataset.cat = it.category || "その他";
+    li.style.setProperty("--dot", dotVar(it.category));
+    li.appendChild(el("div", "rank", String(it.rank || i + 1).padStart(2, "0")));
+    var b = el("div", "body");
+    var meta = el("div", "meta");
+    meta.appendChild(el("span", "cat", it.category || "その他"));
+    if (it.published) meta.appendChild(el("span", "date", it.published.replace(/-/g, ".")));
+    b.appendChild(meta);
+    var h = el("h2");
+    if (it.url) {
+      var a = el("a", null, it.title);
+      a.href = it.url; a.target = "_blank"; a.rel = "noopener";
+      h.appendChild(a);
+    } else { h.textContent = it.title; }
+    b.appendChild(h);
+    if (it.summary) b.appendChild(el("p", "sum", it.summary));
+    if (it.why) {
+      var w = el("p", "why");
+      w.appendChild(el("b", null, "注目点 "));
+      w.appendChild(document.createTextNode(it.why));
+      b.appendChild(w);
+    }
+    if (it.source || it.url) {
+      var s = el("div", "src");
+      if (it.url) {
+        var sa = el("a", null, (it.source || "元記事") + " で読む →");
+        sa.href = it.url; sa.target = "_blank"; sa.rel = "noopener";
+        s.appendChild(sa);
+      } else { s.textContent = it.source; }
+      b.appendChild(s);
+    }
+    li.appendChild(b);
+    list.appendChild(li);
+  });
+
+  var counts = {};
+  items.forEach(function (it) { var c = it.category || "その他"; counts[c] = (counts[c] || 0) + 1; });
+  var current = "すべて";
+  try { current = localStorage.getItem("itnews-filter") || "すべて"; } catch (e) {}
+  if (current !== "すべて" && !counts[current]) current = "すべて";
+
+  function makeChip(label, n, color) {
+    var c = el("button", "chip");
+    c.type = "button";
+    if (color) { c.style.setProperty("--dot", color); c.appendChild(el("i")); }
+    c.appendChild(document.createTextNode(label));
+    c.appendChild(el("span", "n", String(n)));
+    c.dataset.cat = label;
+    c.addEventListener("click", function () { apply(label); });
+    filters.appendChild(c);
+  }
+  makeChip("すべて", items.length, null);
+  Object.keys(CATS).forEach(function (k) { if (counts[k]) makeChip(k, counts[k], dotVar(k)); });
+  Object.keys(counts).forEach(function (k) { if (!CATS[k]) makeChip(k, counts[k], dotVar(k)); });
+
+  function apply(cat) {
+    current = cat;
+    try { localStorage.setItem("itnews-filter", cat); } catch (e) {}
+    Array.prototype.forEach.call(filters.children, function (c) {
+      c.setAttribute("aria-pressed", c.dataset.cat === cat ? "true" : "false");
+    });
+    Array.prototype.forEach.call(list.children, function (li) {
+      li.hidden = !(cat === "すべて" || li.dataset.cat === cat);
+    });
+  }
+  apply(current);
+})();
+</script>
+</body>
+</html>

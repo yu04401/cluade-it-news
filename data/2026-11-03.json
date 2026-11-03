@@ -1,0 +1,107 @@
+{
+  "date": "2026-11-03",
+  "generated_at": "2026-11-03T12:55+09:00",
+  "trend": "GMOのRDP経由の攻撃やクラブツーリズム・アットコスメの大規模漏えいなど国内インシデントが相次ぎ、Binanceの巨額窃盗も重なってセキュリティ一色の週明けとなった。AI分野では利用枠の統合・再編やAI学習可否の新しいrobots.txt指定など、使い方とルール作りの見直しが進んでいる。",
+  "items": [
+    {
+      "rank": 1,
+      "category": "セキュリティ",
+      "title": "お名前.com デスクトップクラウドへの攻撃、RDPのドライブ共有経由で利用者PCまで侵害",
+      "summary": "GMOインターネットの「お名前.com デスクトップクラウド」が攻撃を受け、RDPのドライブ共有機能を悪用して接続元である利用者PCのファイル閲覧やバックドア設置が可能な状態になっていた。影響VPSには取引ツールのログイン情報最大26,739件が保存されており、GMOは利用者にPCのネットワーク切断を求めている。11月2日には熊谷代表が会見で改めて謝罪した。",
+      "why": "RDPのドライブ/クリップボードのリダイレクトを既定で許可していると、接続先の侵害が手元PCに波及し得るため、社内のリモートデスクトップ設定も見直す価値がある。",
+      "source": "INTERNET Watch",
+      "url": "https://internet.watch.impress.co.jp/docs/news/2152904.html",
+      "published": "2026-11-02"
+    },
+    {
+      "rank": 2,
+      "category": "セキュリティ",
+      "title": "FBI、Binanceの約63億ドル暗号資産窃盗を北朝鮮「TraderTraitor」の犯行と断定",
+      "summary": "10月29日ごろにBinanceのグローバルなホットウォレットから60億ドル超（Binance発表では約63億ドル）の暗号資産が盗まれ、FBIは10月31日に北朝鮮系グループTraderTraitorによるものと発表した。資金の多くはETHに換えられ、DeFiや即時交換サービスで洗浄されるとみられる。Binance Japanの顧客資産はコールドウォレットで分別管理されており影響はないという。",
+      "why": "開発者や運用担当を狙うソーシャルエンジニアリングで知られるグループで、署名鍵やCI/CDへのアクセス管理の重要性を改めて示した。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/02/2000002778/",
+      "published": "2026-11-02"
+    },
+    {
+      "rank": 3,
+      "category": "開発",
+      "title": "GitHub「Copilot Fusion」正式リリース、タスクに応じてAIモデルを自動で使い分け",
+      "summary": "GitHub Universe 2026で、作業内容に合わせて1つまたは複数のモデルを組み合わせる「Copilot Fusion」が正式リリースされた。安価なモデルの下書きを検証役が確認して必要時に上位モデルへ引き上げる「Cascade」、別系統のモデルがレビューする「Critique」などのパターンと、Standard/High/Maxの強度を選べる。プレビューではローカルのMAI Code 1.1 FlashやQwen3.8 Flash Nextでの実行も可能になった。",
+      "why": "モデル選択を人が悩まずに済み、トークン消費とコードの品質のバランスをCopilot側で最適化できる。",
+      "source": "Publickey",
+      "url": "https://www.publickey1.jp/blog/26/githubcopilot_fusionaigithub_universe_2026.html",
+      "published": "2026-11-02"
+    },
+    {
+      "rank": 4,
+      "category": "AI",
+      "title": "OpenAI、12月からChatGPTとCodexの利用枠を共通化　ChatとWorkタブも統合へ",
+      "summary": "OpenAIは2026年12月から、Plus・Pro・BusinessでChatGPTとCodexの利用枠をトークン単位で共有する。Instantモードでの会話は対象外で、残量やリセット時刻は設定の「使用状況」で確認できる。あわせてデスクトップアプリのChatとWorkタブを1つにまとめる計画も明らかになり、Codexは別の画面として残る。",
+      "why": "Codexを日常的に使う開発者は、チャット利用分と枠を取り合うことになり、使い方の見直しが必要になる。",
+      "source": "gihyo.jp",
+      "url": "https://gihyo.jp/article/2026/11/chatgpt-and-codex-usage-limits",
+      "published": "2026-11-02"
+    },
+    {
+      "rank": 5,
+      "category": "AI",
+      "title": "robots.txtでAI学習の可否を一括指定する新方式、OpenAI・Google・Microsoftが対応へ",
+      "summary": "robots.txtに「User-Agent: __usage_ai-training」ブロックを書き、Disallow/AllowでAI学習への利用可否を示す方式「Machine-Readable Training Preference Signal」のドラフトが公開された。OpenAIは数か月以内、Googleは2027年初め、Microsoftは2027年2月1日から適用する予定で、Anthropicも実装を始めている。クロール自体の可否は従来どおりクローラーごとの設定で制御する。",
+      "why": "サイト運営側はクローラー名を個別に列挙せずに学習利用だけを拒否できるようになり、自社サイトやドキュメントの方針を整理しやすくなる。",
+      "source": "gihyo.jp",
+      "url": "https://gihyo.jp/article/2026/11/robots-txt-ai-training-controls",
+      "published": "2026-11-02"
+    },
+    {
+      "rank": 6,
+      "category": "セキュリティ",
+      "title": "クラブツーリズムに不正アクセス、最大約432万件の個人情報漏えいの恐れでサイト停止",
+      "summary": "クラブツーリズムは10月30日早朝に不正アクセスを検知し、オンライン予約会員の氏名・住所・電話番号・生年月日など最大約432万件が漏えいした可能性があると発表した。パスワードやパスポート、カード情報は含まれないとしている。サーバーを隔離して調査を続けており、Webサイトは停止中。同日にはアットコスメの約300万人分の漏えい発表も重なった。",
+      "why": "国内で数百万件規模の漏えいが連日続いており、会員DBを持つサービスでは検知と隔離の手順を点検しておきたい。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/02/2000002782/",
+      "published": "2026-11-02"
+    },
+    {
+      "rank": 7,
+      "category": "セキュリティ",
+      "title": "温度監視ツール「Core Temp」のカーネルドライバに脆弱性、物理メモリの読み書きが可能に",
+      "summary": "JVNは、Windows向けCPU温度監視ツールCore Tempのv1.21より前のカーネルドライバで、IOCTLインタフェースのアクセス制御が不十分な脆弱性（CVE-2026-109836）を公表した。悪用には高い権限でのローカルアクセスが必要だが、物理メモリを読み書きされる恐れがあり、CVSS v4.0は8.4。v1.21以降への更新が推奨されている。",
+      "why": "正規署名済みの脆弱なドライバはBYOVD攻撃に使われやすく、開発機や検証機に入れたままのハードウェア監視ツールも更新対象になる。",
+      "source": "JVN",
+      "url": "https://jvn.jp/jp/JVN23328936/",
+      "published": "2026-11-02"
+    },
+    {
+      "rank": 8,
+      "category": "AI",
+      "title": "Anthropic、Claudeの「Max 20x」を「Ultra」に改称し5時間ごとの利用制限を撤廃",
+      "summary": "Anthropicは月200ドルの「Max 20x」を「Ultra」、月100ドルの「Max 5x」を「Max」に名称変更した。Ultraは認証済みアカウントで5時間ごとの利用制限がなくなり、週単位でProの10倍を使える。両プランとも上位モデル「Fable」を週の上限の最大50%まで使え、Claude Platform向けAPIクレジット（Max 100ドル、Ultra 200ドル）も毎月付く。",
+      "why": "長時間のエージェント作業やコーディングで5時間枠に止められる問題が解消され、Claude Codeなどを使う開発者の実務に直接効く。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/02/2000002777/",
+      "published": "2026-11-02"
+    },
+    {
+      "rank": 9,
+      "category": "ビジネス",
+      "title": "Reddit、ログイン必須化へ　広告精度の向上とAIボット排除が狙い",
+      "summary": "RedditのSteve Huffman CEOは株主向けレターで、ログインした利用者向けの体験に一本化する方針を示した。第4四半期に米国外の一部市場で試験を始め、結果を見て全世界での展開を決める。広告ターゲティングの精度向上と、AI学習目的でデータを集めるボットの制限を理由に挙げている。",
+      "why": "技術的な調べものでRedditの検索結果に頼る場面は多く、未ログインでの閲覧やスクレイピングを前提にしたツールにも影響が出る可能性がある。",
+      "source": "INTERNET Watch",
+      "url": "https://internet.watch.impress.co.jp/docs/yajiuma/2153000.html",
+      "published": "2026-11-02"
+    },
+    {
+      "rank": 10,
+      "category": "ハード",
+      "title": "使われていないNPUでWindowsのデスクトップを描画する研究用ドライバ「npu-render」が公開",
+      "summary": "labscommunityは、DWMがGPUに送るDirect3D描画命令を横取りしてIntel NPU上で実行する研究用ドライバ「npu-render」をApache License 2.0で公開した。アプリやDWMからは通常のDirect3D 10デバイスに見え、出力はCPU参照実装とピクセル単位で一致する。ただしPanther Lakeノートでも画面更新は毎秒2〜3回にとどまり、実用にはほど遠い。",
+      "why": "Windowsのディスプレイドライバモデルの上でNPUを汎用的な計算資源として扱う実例として、ドライバ開発やNPU活用を考える組み込み・Windows開発者の参考になる。",
+      "source": "PC Watch",
+      "url": "https://pc.watch.impress.co.jp/docs/news/2152950.html",
+      "published": "2026-11-02"
+    }
+  ]
+}
