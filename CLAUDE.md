@@ -11,7 +11,9 @@
 4. 上位10件を選び、`data/DATE.json` を書く（下の「JSONの形式」に従う）。
 5. `python3 scripts/build.py DATE` を実行する。ERROR が出たら JSON を直して再実行する。
 6. `git add -A && git commit -m "ITニュース朝刊 DATE"` して push する。
-7. 1位〜3位の見出しと trend を短く報告して終わる。
+7. `docs/daily/DATE.html` を SendUserFile で送る（status は "proactive"、display は "render"、caption は「ITニュース朝刊 DATE」）。
+   GitHub アプリでは HTML がコードとして表示されるため、チャット上でページとして開けるようにする。
+8. 1位〜3位の見出しと trend を短く報告して終わる。
 
 ## ニュースの集め方（2軸）
 
