@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ITニュース朝刊</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Kaku+Gothic+New:wght@700;900&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* 1カラムの読み物。左に順位、右に本文。上部にカテゴリ絞り込み */
+:root {
+  --bg: #f2f4f7;
+  --surface: #ffffff;
+  --ink: #16202a;
+  --muted: #5a6572;
+  --line: #dce1e8;
+  --accent: #1f5fbf;
+  --accent-soft: #e4ecf8;
+  --c-ai: #7445d1;
+  --c-sec: #c2402b;
+  --c-cloud: #17807f;
+  --c-hw: #9a6510;
+  --c-biz: #3b6d2d;
+  --c-dev: #1f5fbf;
+  --c-other: #6b7480;
+  --f-display: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --f-body: "BIZ UDPGothic", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1318; --surface: #151c23; --ink: #e4e9ef; --muted: #96a2ae; --line: #252f39;
+    --accent: #72a6f3; --accent-soft: #1b2a3f;
+    --c-ai: #a98cf2; --c-sec: #f08672; --c-cloud: #5cc6c4; --c-hw: #e2ab4f; --c-biz: #8cc475; --c-dev: #72a6f3; --c-other: #9aa4ae;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1318; --surface: #151c23; --ink: #e4e9ef; --muted: #96a2ae; --line: #252f39;
+  --accent: #72a6f3; --accent-soft: #1b2a3f;
+  --c-ai: #a98cf2; --c-sec: #f08672; --c-cloud: #5cc6c4; --c-hw: #e2ab4f; --c-biz: #8cc475; --c-dev: #72a6f3; --c-other: #9aa4ae;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 15px;
+  line-height: 1.75;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+}
+.wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+
+header { display: flex; flex-direction: column; gap: 10px; }
+.eyebrow {
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em;
+  color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 14px;
+}
+.eyebrow b { color: var(--accent); font-weight: 700; }
+h1 {
+  font-family: var(--f-display); font-weight: 900; font-size: clamp(30px, 7vw, 44px);
+  line-height: 1.15; margin: 0; letter-spacing: .01em; text-wrap: balance;
+}
+.trend {
+  margin: 4px 0 0; padding: 12px 14px; background: var(--accent-soft);
+  border-radius: 8px; font-size: 15px; line-height: 1.7;
+}
+.trend span { font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; color: var(--accent); display: block; margin-bottom: 2px; }
+
+.filters { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+.filters::-webkit-scrollbar { display: none; }
+.chip {
+  flex: none; font: 700 13px/1 var(--f-body); color: var(--muted);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+  padding: 8px 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
+}
+.chip i { width: 8px; height: 8px; border-radius: 50%; background: var(--dot, var(--muted)); }
+.chip .n { font-family: var(--f-mono); font-size: 11px; font-weight: 500; }
+.chip[aria-pressed="true"] { color: var(--surface); background: var(--ink); border-color: var(--ink); }
+.chip[aria-pressed="true"] i { background: var(--surface); }
+.chip:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+ol.news { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.item { display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding: 20px 18px; border-top: 1px solid var(--line); }
+.item:first-child { border-top: 0; }
+.rank { font-family: var(--f-mono); font-weight: 700; font-size: 22px; line-height: 1.2; color: var(--muted); font-variant-numeric: tabular-nums; }
+.item:nth-child(-n+3) .rank { color: var(--accent); }
+.body { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; font-size: 12px; color: var(--muted); }
+.cat { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; color: var(--dot); }
+.cat::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dot); }
+.date { font-family: var(--f-mono); font-size: 11.5px; }
+h2 { font-family: var(--f-display); font-weight: 700; font-size: 18px; line-height: 1.45; margin: 0; text-wrap: balance; overflow-wrap: anywhere; }
+h2 a { color: inherit; text-decoration: none; }
+h2 a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+.sum { margin: 0; overflow-wrap: anywhere; }
+.why { margin: 2px 0 0; font-size: 13.5px; color: var(--muted); padding-left: 10px; border-left: 2px solid var(--line); }
+.why b { color: var(--ink); font-weight: 700; }
+.src { font-size: 12.5px; }
+.src a { color: var(--accent); text-decoration: none; overflow-wrap: anywhere; }
+.src a:hover { text-decoration: underline; }
+
+.empty { padding: 40px 22px; text-align: left; display: flex; flex-direction: column; gap: 8px; }
+.empty strong { font-family: var(--f-display); font-size: 18px; }
+.empty p { margin: 0; color: var(--muted); }
+
+footer { font-size: 12px; color: var(--muted); line-height: 1.7; }
+@media (max-width: 480px) {
+  .item { grid-template-columns: 30px 1fr; gap: 10px; padding: 18px 14px; }
+  .rank { font-size: 18px; }
+  h2 { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+<script type="application/json" id="news-data">{"date": "2026-11-10", "generated_at": "2026-11-10T05:53+09:00", "trend": "国内では大手企業や大学の不正アクセス・情報流出の公表が相次ぎ、政府もサイバー緊急対策に動いた。AIを使った脆弱性発見が攻撃・防御の両面で一気に加速している。", "items": [{"rank": 1, "category": "AI", "title": "OpenAI、サイバーセキュリティ特化AI「GPT-6 Cyber」を公開", "summary": "OpenAIがセキュリティ用途向けの新モデル「GPT-6 Cyber」を公開した。報道によると、Linuxの脆弱性を1724件発見したとしている。", "why": "AIによる脆弱性の大量発見が進むほど、パッチ公開から攻撃までの猶予が縮み、更新適用の速さがより重要になる。", "source": "マイナビニュース TECH+", "url": "https://news.mynavi.jp/techplus/article/20261109-5287644", "published": "2026-11-09"}, {"rank": 2, "category": "セキュリティ", "title": "ドコモの不正アクセス、本人確認書類の番号も流出 見舞金を検討", "summary": "NTTドコモの不正アクセス事案で、流出した情報に本人確認書類の番号が含まれていたことが分かった。同社は影響を受けた利用者への見舞金を検討している。", "why": "利用者数の多い通信キャリアの事案で、本人確認書類の番号を悪用したなりすましや詐欺への警戒が必要になる。", "source": "ITmedia NEWS", "url": "https://www.itmedia.co.jp/news/article/2611/09/2000003000/", "published": "2026-11-09"}, {"rank": 3, "category": "クラウド", "title": "2026年第3四半期のクラウドインフラシェア、AWSは26％に後退しGoogle Cloudは16％に", "summary": "2026年第3四半期のクラウドインフラ市場調査で、AWSのシェアが26％に下がり、Google Cloudは16％に上がった。市場全体は過去最大の高い成長率になる見通し。", "why": "AI需要でクラウド勢力図が動いており、クラウド選定やマルチクラウド戦略を考える材料になる。", "source": "ITmedia NEWS", "url": "https://www.itmedia.co.jp/news/article/2611/09/2000003001/", "published": "2026-11-09"}, {"rank": 4, "category": "ビジネス", "title": "NVIDIA、フアンCEOへの中国スパイ工作疑惑で独立調査へ", "summary": "NVIDIAは、ジェンスン・フアンCEOを狙った中国のスパイ工作疑惑について独立調査を行う。フアン氏本人は不倫を認めて謝罪した。", "why": "AI半導体の最大手の経営リスクは、GPUの供給や対中輸出規制の行方にも影響しうる。", "source": "ITmedia NEWS", "url": "https://www.itmedia.co.jp/news/article/2611/09/2000002998/", "published": "2026-11-09"}, {"rank": 5, "category": "セキュリティ", "title": "ネット印刷「ラクスル」に不正アクセス、入稿データの一部が漏えいの可能性", "summary": "ネット印刷サービスのラクスルが不正アクセスを受け、入稿データの一部が漏えいした可能性がある。名刺やはがきに記載された個人情報も含まれるという。", "why": "利用者が預けたファイルそのものが漏れる型の被害で、アップロードデータの保管期間や保護の設計を見直すきっかけになる。", "source": "ITmedia NEWS", "url": "https://www.itmedia.co.jp/news/article/2611/09/2000003004/", "published": "2026-11-09"}, {"rank": 6, "category": "その他", "title": "政府、サイバー攻撃への緊急対策で「トップガン人材」チームを設立へ 予備費100億円", "summary": "政府はサイバー攻撃への緊急対策として、高度なセキュリティ人材を集めた「トップガン人材」チームを設ける。予備費から100億円を支出する。", "why": "国の対策強化は、重要インフラや取引先企業へのセキュリティ要求の引き上げにつながりやすい。", "source": "ITmedia NEWS", "url": "https://www.itmedia.co.jp/news/article/2611/09/2000003005/", "published": "2026-11-09"}, {"rank": 7, "category": "セキュリティ", "title": "早稲田大、PHPの脆弱性対応中に不正アクセスを発見 個人情報約3400件の流出を確認", "summary": "早稲田大学がPHPの脆弱性への対応を進めていたところ、不正アクセスを受けていたことが分かった。約3400件の個人情報の流出を確認したという。", "why": "脆弱性の修正だけでなく、修正前に侵入されていないかの調査まで含めて対応する必要があることを示す例。", "source": "ITmedia NEWS", "url": "https://www.itmedia.co.jp/news/article/2611/09/2000003012/", "published": "2026-11-09"}, {"rank": 8, "category": "ハード", "title": "モニターにも値上げの波 アイオーデータは10月に実施、EIZOも12月以降に", "summary": "PC用モニターの値上げが広がっている。アイオーデータは10月に値上げし、EIZOも12月以降に値上げする。", "why": "開発環境の機材更新を計画しているなら、調達時期の判断に関わる。", "source": "ITmedia NEWS", "url": "https://www.itmedia.co.jp/news/article/2611/09/2000003015/", "published": "2026-11-09"}, {"rank": 9, "category": "セキュリティ", "title": "情報漏えいの続出で、個人に合わせた“専用詐欺メール”の登場が懸念", "summary": "情報漏えいが相次ぐなか、漏れた個人情報を組み合わせて特定の人向けに作り込んだフィッシングメールが出てくる懸念が指摘されている。", "why": "宛名や取引内容が本物らしいメールでも疑う前提の社内教育や、送信ドメイン認証の徹底が要る。", "source": "ITmedia NEWS", "url": "https://www.itmedia.co.jp/news/article/2611/09/2000002926/", "published": "2026-11-09"}, {"rank": 10, "category": "ビジネス", "title": "同じソフトウェア企業でも明暗、「AIに置き換えられるリスク」が市場評価の分かれ目に", "summary": "業績が堅調なソフトウェア企業でも、市場での評価に差が出ている。AIに置き換えられるリスクの大きさが評価を分ける要因になっているという分析。", "why": "自社製品がAIで代替されうるかが、ソフトウェア事業の評価軸になりつつある。", "source": "＠IT", "url": "https://atmarkit.itmedia.co.jp/ait/articles/2611/09/news027.html", "published": "2026-11-09"}]}</script>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow" id="eyebrow"><b>IT DAILY</b><span id="dateLabel">—</span><span id="genLabel"></span></div>
+    <h1>ITニュース朝刊</h1>
+    <p class="trend" id="trend" hidden><span>TODAY'S TREND</span><em id="trendText" style="font-style:normal"></em></p>
+  </header>
+
+  <nav class="filters" id="filters" aria-label="カテゴリで絞り込み"></nav>
+
+  <ol class="news" id="list"></ol>
+
+  <footer>
+    <a href="../archive.html" style="color:var(--accent)">過去の号を見る</a><br>
+    毎朝6時に国内外のIT・テック系ニュースから重要度の高い10件を選び、要約して更新しています。要約はAIによるもので、詳細や正確な数値は各リンク先の元記事で確認してください。
+  </footer>
+</div>
+
+<script>
+(function () {
+  var CATS = {
+    "AI": "--c-ai", "セキュリティ": "--c-sec", "クラウド": "--c-cloud",
+    "ハード": "--c-hw", "ビジネス": "--c-biz", "開発": "--c-dev", "その他": "--c-other"
+  };
+  var data;
+  try { data = JSON.parse(document.getElementById("news-data").textContent); }
+  catch (e) { data = { items: [] }; }
+  var items = (data.items || []).slice().sort(function (a, b) { return (a.rank || 99) - (b.rank || 99); });
+
+  var WD = ["日", "月", "火", "水", "木", "金", "土"];
+  function fmtDate(s) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s || "");
+    if (!m) return "";
+    var d = new Date(+m[1], +m[2] - 1, +m[3]);
+    return m[1] + "." + m[2] + "." + m[3] + " (" + WD[d.getDay()] + ")";
+  }
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function dotVar(cat) { return "var(" + (CATS[cat] || "--c-other") + ")"; }
+
+  document.getElementById("dateLabel").textContent = fmtDate(data.date) || "初回更新待ち";
+  var g = /T(\d{2}:\d{2})/.exec(data.generated_at || "");
+  if (g) document.getElementById("genLabel").textContent = g[1] + " 更新";
+  if (data.trend) {
+    document.getElementById("trendText").textContent = data.trend;
+    document.getElementById("trend").hidden = false;
+  }
+
+  var list = document.getElementById("list");
+  var filters = document.getElementById("filters");
+
+  if (!items.length) {
+    filters.hidden = true;
+    var li = el("li", "empty");
+    li.appendChild(el("strong", null, "最初の号を準備中です"));
+    li.appendChild(el("p", null, "毎朝6時に、その日のITニュース上位10件がここに並びます。カテゴリ別に絞り込み、見出しから元記事に移動できます。"));
+    list.appendChild(li);
+    return;
+  }
+
+  items.forEach(function (it, i) {
+    var li = el("li", "item");
+    li.dataset.cat = it.category || "その他";
+    li.style.setProperty("--dot", dotVar(it.category));
+    li.appendChild(el("div", "rank", String(it.rank || i + 1).padStart(2, "0")));
+    var b = el("div", "body");
+    var meta = el("div", "meta");
+    meta.appendChild(el("span", "cat", it.category || "その他"));
+    if (it.published) meta.appendChild(el("span", "date", it.published.replace(/-/g, ".")));
+    b.appendChild(meta);
+    var h = el("h2");
+    if (it.url) {
+      var a = el("a", null, it.title);
+      a.href = it.url; a.target = "_blank"; a.rel = "noopener";
+      h.appendChild(a);
+    } else { h.textContent = it.title; }
+    b.appendChild(h);
+    if (it.summary) b.appendChild(el("p", "sum", it.summary));
+    if (it.why) {
+      var w = el("p", "why");
+      w.appendChild(el("b", null, "注目点 "));
+      w.appendChild(document.createTextNode(it.why));
+      b.appendChild(w);
+    }
+    if (it.source || it.url) {
+      var s = el("div", "src");
+      if (it.url) {
+        var sa = el("a", null, (it.source || "元記事") + " で読む →");
+        sa.href = it.url; sa.target = "_blank"; sa.rel = "noopener";
+        s.appendChild(sa);
+      } else { s.textContent = it.source; }
+      b.appendChild(s);
+    }
+    li.appendChild(b);
+    list.appendChild(li);
+  });
+
+  var counts = {};
+  items.forEach(function (it) { var c = it.category || "その他"; counts[c] = (counts[c] || 0) + 1; });
+  var current = "すべて";
+  try { current = localStorage.getItem("itnews-filter") || "すべて"; } catch (e) {}
+  if (current !== "すべて" && !counts[current]) current = "すべて";
+
+  function makeChip(label, n, color) {
+    var c = el("button", "chip");
+    c.type = "button";
+    if (color) { c.style.setProperty("--dot", color); c.appendChild(el("i")); }
+    c.appendChild(document.createTextNode(label));
+    c.appendChild(el("span", "n", String(n)));
+    c.dataset.cat = label;
+    c.addEventListener("click", function () { apply(label); });
+    filters.appendChild(c);
+  }
+  makeChip("すべて", items.length, null);
+  Object.keys(CATS).forEach(function (k) { if (counts[k]) makeChip(k, counts[k], dotVar(k)); });
+  Object.keys(counts).forEach(function (k) { if (!CATS[k]) makeChip(k, counts[k], dotVar(k)); });
+
+  function apply(cat) {
+    current = cat;
+    try { localStorage.setItem("itnews-filter", cat); } catch (e) {}
+    Array.prototype.forEach.call(filters.children, function (c) {
+      c.setAttribute("aria-pressed", c.dataset.cat === cat ? "true" : "false");
+    });
+    Array.prototype.forEach.call(list.children, function (li) {
+      li.hidden = !(cat === "すべて" || li.dataset.cat === cat);
+    });
+  }
+  apply(current);
+})();
+</script>
+</body>
+</html>
