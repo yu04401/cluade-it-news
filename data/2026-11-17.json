@@ -1,0 +1,107 @@
+{
+  "date": "2026-11-17",
+  "generated_at": "2026-11-17T05:52+09:00",
+  "trend": "GoogleがAIだけで脆弱性の発見から悪用まで行う攻撃を初確認し、パスキー実装の不備や富岳・マネックス証券・paizaの情報漏えいなどセキュリティの話題が目立ちます。一方でAnthropicのIPOやChatGPT Walletなど、AIが資本市場と決済に本格的に入り込む動きも続いています。本日はRSSフィードが取得できず、ITmediaの記事一覧とTechmemeから候補を集めた版です。",
+  "items": [
+    {
+      "rank": 1,
+      "category": "セキュリティ",
+      "title": "Google、人間の関与なしに脆弱性を発見・悪用するAIフレームワークを初めて観測",
+      "summary": "Google Threat Intelligence Group（GTIG）が「GTIG AI Threat Tracker」2026年第4四半期版を公開し、LLMが人の手を介さず脆弱性の発見から悪用までを行う事例を初めて確認したと報告した。ゼロデイ攻撃は2025年の月平均8件から2026年は月11件に増え、8月は22件に達したという。",
+      "why": "攻撃の自動化で公開から悪用までの時間がさらに縮むため、パッチ適用と依存ライブラリ更新の速度が直接リスクに効いてくる。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/16/2000003244/",
+      "published": "2026-11-16"
+    },
+    {
+      "rank": 2,
+      "category": "セキュリティ",
+      "title": "パスキー対応103サイトを検証、WebAuthnの全基準を満たすサイトはゼロ",
+      "summary": "独ルール大学ボーフムなどの研究者が、ツール「PASSKEYS-ATTACKER」で103サイトのパスキー実装を検証したところ、WebAuthnの全セキュリティ基準に合格したサイトは1つもなかった。緊急レベルの脆弱性が18サイト、重要レベルが53サイトで見つかり、追加の本人確認なしにパスキー登録を許すサイトも66%に上った。",
+      "why": "パスキーを実装する側の検証漏れが安全性を損なっており、自社サービスの登録フローやサーバー側検証を見直すきっかけになる。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/16/2000003199/",
+      "published": "2026-11-16"
+    },
+    {
+      "rank": 3,
+      "category": "セキュリティ",
+      "title": "スパコン「富岳」関連システムに不正アクセス、理研が認める",
+      "summary": "理化学研究所は、スーパーコンピュータ「富岳」に関するシステムが不正アクセスを受けたことを明らかにした。利用者に通知メールを送ったことは認めたが、秘密鍵や認証情報が持ち出された可能性などの詳細は確認中としている。",
+      "why": "富岳のアカウントや SSH 鍵を持つ研究者・開発者は、鍵の再発行や他システムでの使い回しの確認が必要になる可能性がある。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/16/2000003224/",
+      "published": "2026-11-16"
+    },
+    {
+      "rank": 4,
+      "category": "ビジネス",
+      "title": "AnthropicのIPO、需要が募集の約7倍に",
+      "summary": "Bloombergによると、AnthropicのIPOは募集額の約7倍の申し込みを集めており、私募分を含めて最大約904億ドルの調達を目指している。仮条件は1株70〜78ドルと報じられている。",
+      "why": "Claudeを提供するAI企業の上場は、AIモデルの価格や提供体制、開発者向けAPIの方向性にも影響しうる。",
+      "source": "Bloomberg",
+      "url": "https://www.bloomberg.com/news/features/2026-11-15/anthropic-s-ipo-makes-dario-amodei-the-new-face-of-the-ai-boom",
+      "published": "2026-11-15"
+    },
+    {
+      "rank": 5,
+      "category": "AI",
+      "title": "OpenAI、AIエージェントが代わりに支払う「ChatGPT Wallet」を発表",
+      "summary": "OpenAIはAmerican Express、Mastercard、Visaと組んだ決済機能「ChatGPT Wallet」を発表した。購入ごとにFace IDなどの生体認証を求め、カード番号の代わりに決済トークンを店舗やエージェントに渡す。まず米国のChatGPT Pro加入者向けに段階的に提供し、日本での時期は未定。",
+      "why": "エージェントによる決済が標準化に向かうと、EC側にもエージェント経由の購入を受け付けるAPIや認証設計が求められる。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/16/2000003208/",
+      "published": "2026-11-16"
+    },
+    {
+      "rank": 6,
+      "category": "セキュリティ",
+      "title": "マネックス証券、本人確認書類画像1592件とメールアドレス最大113万件が漏えいのおそれ",
+      "summary": "マネックス証券は、外部委託先が運営する口座開設システムが不正アクセスを受け、メールアドレス最大113万件と、運転免許証やマイナンバーカード表面などの画像1592件が漏えいしたおそれがあると発表した。口座番号やパスワードは同じデータベースになく、漏えいは確認していないという。",
+      "why": "委託先システム経由の漏えいが続いており、本人確認画像のような機微データの保管範囲と委託先管理の重要性を示している。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/16/2000003222/",
+      "published": "2026-11-16"
+    },
+    {
+      "rank": 7,
+      "category": "開発",
+      "title": "paiza、ステージング環境の個人情報最大90万件が約13年間アクセス可能な状態に",
+      "summary": "エンジニア転職サービスのpaizaは、開発用ステージング環境に置かれていた最大90万2576件の個人情報に、退職者などがアクセスできる状態が2013年から2026年8月まで続いていたと発表した。外部への流出は確認していないとしている。",
+      "why": "本番データをステージングに複製したまま権限管理を怠る典型的な落とし穴で、開発環境のデータ取り扱いを点検する好例になる。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/16/2000003215/",
+      "published": "2026-11-16"
+    },
+    {
+      "rank": 8,
+      "category": "その他",
+      "title": "ドコモ「5G SA」で今月3度目の全国障害、約6時間で復旧",
+      "summary": "NTTドコモの5G SA契約者向けサービスで11月16日午前10時2分から全国的な障害が起き、午後3時58分に完全復旧した。原因は5G SA契約者を収容する交換機への通信集中で、11月5日、11日に続き今月3回目。サイバー攻撃の形跡はないという。",
+      "why": "同じ原因の障害が短期間に繰り返されており、モバイル回線に依存するIoT機器や業務システムでは冗長化の検討が必要になる。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/16/2000003233/",
+      "published": "2026-11-16"
+    },
+    {
+      "rank": 9,
+      "category": "その他",
+      "title": "ULAのVulcanが打ち上げ失敗、AmazonのLeo衛星40基を喪失",
+      "summary": "Reutersによると、ULAのVulcanロケットが打ち上げ後に失敗し、搭載していたAmazonの衛星インターネット「Leo」の衛星40基が失われた。Vulcanにとって初のミッション失敗となる。",
+      "why": "Starlinkに対抗するAmazonの衛星通信網の整備が遅れる可能性があり、衛星回線の選択肢の広がりにも影響する。",
+      "source": "Reuters",
+      "url": "https://www.reuters.com/business/aerospace-defense/us-rocket-fails-after-launch-payload-amazon-internet-satellites-destroyed-2026-11-15/",
+      "published": "2026-11-15"
+    },
+    {
+      "rank": 10,
+      "category": "ハード",
+      "title": "次世代パワー半導体の酸化ガリウム、埼玉のノベルクリスタルテクノロジーが量産へ前進",
+      "summary": "酸化ガリウムのウエハーを開発するノベルクリスタルテクノロジー（埼玉県狭山市）は、2025年にイリジウムを使わない結晶育成法「DG法」を開発し、三菱電機と共同開発を進めている。電力ロスを大きく減らせる素材としてAIデータセンター需要を狙い、普及は2030年代と見込む。",
+      "why": "電源回路やモーター制御など組み込み・ハードの設計で使える半導体素材の選択肢が増える可能性がある。",
+      "source": "ITmedia NEWS（産経新聞）",
+      "url": "https://www.itmedia.co.jp/news/article/2611/16/2000003231/",
+      "published": "2026-11-16"
+    }
+  ]
+}
