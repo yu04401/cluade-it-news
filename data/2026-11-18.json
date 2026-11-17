@@ -1,0 +1,67 @@
+{
+  "date": "2026-11-18",
+  "generated_at": "2026-11-18T05:55+09:00",
+  "trend": "米国が第三国のデータセンター経由で中国がAIチップを遠隔利用するのを規制する方針を打ち出し、AI半導体をめぐる輸出管理がクラウド利用にまで広がりました。同じ日にMicrosoft Ignite 2026が開幕し、Copilotとエージェント、Windowsのセキュリティ強化が発表の中心です。本日はRSSフィードと記事本文がすべて取得できず、検索結果で日付と内容が確認できた6件のみの縮小版です。",
+  "items": [
+    {
+      "rank": 1,
+      "category": "ハード",
+      "title": "米商務省、第三国データセンター経由での中国によるAIチップ遠隔利用を規制へ",
+      "summary": "米商務省が、中国企業が第三国にあるデータセンターを通じてAIチップを遠隔で利用することを規制する方針を示しました。トランプ大統領のアジア訪問を前に、AIチップの輸出管理をさらに厳しくする動きとして国内外の複数メディアが報じています。",
+      "why": "GPUを直接買わずにクラウド経由で使う抜け道が対象になり、海外リージョンのGPUクラウド利用や半導体各社の事業に影響が出る可能性があります。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/17/2000003258/",
+      "published": "2026-11-17"
+    },
+    {
+      "rank": 2,
+      "category": "AI",
+      "title": "Microsoft Ignite 2026開幕、Copilotとエージェントを軸に多数の発表",
+      "summary": "Microsoftが年次イベント「Ignite 2026」を11月17日に開幕し、公式ブログで基調講演の発表内容をまとめました。Copilotとエージェント、AIのセキュリティ、Azureの新サービスが中心で、パートナーを含む「フロンティア」エコシステムの構築も打ち出しています。",
+      "why": "Microsoft 365・Azure・開発ツールの来年の方向性が決まる場で、.NETやWindows環境で開発する人には今後の採用技術に直結します。",
+      "source": "Microsoft",
+      "url": "https://news.microsoft.com/source/2026/11/17/microsoft-ignite-2026-empowering-human-ambition-intelligence-and-trust/",
+      "published": "2026-11-17"
+    },
+    {
+      "rank": 3,
+      "category": "セキュリティ",
+      "title": "マーケツール「KARTE」に不正アクセス、モリサワやmineoなどの会員情報が漏えい",
+      "summary": "マーケティングツール「KARTE」への不正アクセスにより、モリサワや「mineo」など導入企業の会員情報が漏えいしました。外部サービスと連携するためのシークレットキーなども流出した対象に含まれています。",
+      "why": "SaaS側の侵害で連携用の秘密鍵まで漏れたケースで、外部サービスのAPIキーの棚卸しとローテーションを見直すきっかけになります。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/17/2000003257/",
+      "published": "2026-11-17"
+    },
+    {
+      "rank": 4,
+      "category": "セキュリティ",
+      "title": "Ignite 2026でWindowsのセキュリティ強化と業務向けの新機能を発表",
+      "summary": "MicrosoftはIgnite 2026に合わせ、Windowsのセキュリティ方針を「安全な状態で始める」「大事なものを守る」「AIに備える」の3本柱で説明しました。あわせて、これからの働き方に向けたWindowsの業務向け機能も発表しています。",
+      "why": "Windows上で動くアプリやドライバの開発者は、OS側のセキュリティ既定値の変更が自社ソフトの動作や配布に影響しないか確認が必要です。",
+      "source": "Windows Experience Blog",
+      "url": "https://blogs.windows.com/windowsexperience/2026/11/17/windows-security-at-ignite-2026-start-secure-protect-what-matters-prepare-for-ai/",
+      "published": "2026-11-17"
+    },
+    {
+      "rank": 5,
+      "category": "その他",
+      "title": "米国でMicrosoft・銀行・FAAのシステム障害が相次ぐ",
+      "summary": "米国でMicrosoftのサービス障害、大手銀行のシステム障害、FAA（連邦航空局）による航空機の地上待機が相次ぎ、複数のメディアが速報で伝えました。米国土安全保障省がAIが原因の可能性に言及したとも報じられています。",
+      "why": "社会インフラの障害が連鎖すると業務システムも巻き込まれるため、依存しているクラウドサービスの障害時の手順を確認しておく価値があります。",
+      "source": "Fox News",
+      "url": "https://www.foxnews.com/live-news/tech-outages-microsoft-banks-faa-fbi-11-17-26",
+      "published": "2026-11-17"
+    },
+    {
+      "rank": 6,
+      "category": "ビジネス",
+      "title": "Microsoft、業務アプリを統合した「Dynamics 365 in Copilot」を発表",
+      "summary": "MicrosoftはIgnite 2026で、業務アプリ群Dynamics 365をCopilotの中から使えるようにする「Dynamics 365 in Copilot」を発表しました。CRMやERPの操作をCopilotに集約する方向性を示しています。",
+      "why": "Dynamics 365と連携する業務システムを作っている場合、操作の入口がCopilotに移ることで連携方法の見直しが必要になる可能性があります。",
+      "source": "Microsoft Dynamics 365 Blog",
+      "url": "https://www.microsoft.com/en-us/dynamics-365/blog/business-leader/2026/11/17/microsoft-ignite-2026-introducing-dynamics-365-in-copilot/",
+      "published": "2026-11-17"
+    }
+  ]
+}
