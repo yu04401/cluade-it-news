@@ -1,0 +1,77 @@
+{
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T05:52+09:00",
+  "trend": "Microsoft公式PyPIパッケージの侵害やMetabase脆弱性を突いた情報漏えいなど、開発・分析ツールのサプライチェーンを狙う攻撃が目立つ。一方でNvidiaの好決算とAnthropicの上場でAI投資の熱は続いている。",
+  "items": [
+    {
+      "rank": 1,
+      "category": "セキュリティ",
+      "title": "Microsoft「Agent Framework」のPyPIパッケージが侵害、認証情報を盗む不正版が公開",
+      "summary": "Microsoft公式のPython向けAgent FrameworkパッケージのPyPI上に、11月17日に不正なバージョン1.26.1と1.26.2が公開された。importしなくてもPython起動時に動く仕組みで、Azure・AWS・GitHub・Docker・Hugging Face・OpenAIなどの認証情報を外部に送信する。PyPIは両版を隔離済みで、1.26.0からの再構築と認証情報のローテーションが推奨されている。",
+      "why": "該当版を入れた開発機やCIでは、パッケージを使っていなくてもクラウド等の認証情報が漏れている恐れがあり、即時の確認とキー更新が必要。",
+      "source": "BleepingComputer",
+      "url": "https://www.bleepingcomputer.com/news/security/microsofts-agent-framework-pypi-package-compromised-to-steal-credentials/",
+      "published": "2026-11-18"
+    },
+    {
+      "rank": 2,
+      "category": "ハード",
+      "title": "Nvidia第3四半期は売上1158億ドルで前年比2倍超、取締役会はフアン氏のCEO復帰を否定",
+      "summary": "Nvidiaの第3四半期売上高は1158億ドル（前年同期比103%増）で、データセンター部門が1076億ドルを占め、市場予想を上回った。第4四半期の売上見通しは1274億〜1326億ドルで、1500億ドルの自社株買いも発表した。取締役会議長はジェンスン・フアン氏をCEOに戻す考えはないとし、コレット・クレス氏が暫定CEOを務める。",
+      "why": "AI向けGPU需要の強さが続く一方で経営体制は不透明で、GPU供給や価格、CUDAエコシステムの先行きを左右する。",
+      "source": "Yahoo Finance",
+      "url": "https://finance.yahoo.com/technology/live/nvidia-earnings-live-nvidia-posts-q3-beat-board-says-it-will-not-reinstate-jensen-huang-as-ceo-221428433.html",
+      "published": "2026-11-18"
+    },
+    {
+      "rank": 3,
+      "category": "クラウド",
+      "title": "Microsoft、セキュリティを既定で強化した「Windows Server 2028」を発表",
+      "summary": "Ignite 2026でWindows Server 2028が発表され、Server Coreは強化済み設定が既定となり、管理者が項目ごとに緩められるセキュリティベースラインを備える。NTLMよりKerberosを優先し、SMB署名・暗号化、ML-KEMによるハイブリッド耐量子鍵交換を含むTLS、Basic/Digest認証なしのWinRMなどを採用する。Intuneでのサーバー管理、NVMeネイティブストレージ、Windows MLやvLLM、Llama.cppによるAI推論にも対応する。",
+      "why": "NTLMやレガシー認証に依存する社内ツールや運用スクリプトは、移行時に動かなくなる可能性があり早めの棚卸しが必要。",
+      "source": "BleepingComputer",
+      "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-announces-windows-server-2028-with-hardened-security/",
+      "published": "2026-11-18"
+    },
+    {
+      "rank": 4,
+      "category": "ビジネス",
+      "title": "Anthropic、NasdaqでのIPOへ　ティッカーは「ANT」",
+      "summary": "Claudeを開発するAnthropicが、Nasdaqへの上場に向けて11月18日に公開価格を決め、19日から取引が始まる予定と報じられている。ティッカーシンボルは「ANT」で、AI企業として過去最大級の上場になると注目されている。",
+      "why": "主要LLMベンダーが上場企業になることで、APIの価格や提供方針が市場の目にさらされ、利用企業の調達判断にも影響しうる。",
+      "source": "CNN",
+      "url": "https://cnn.com/2026/11/18/investing/anthropic-ipo-wall-street-ai",
+      "published": "2026-11-18"
+    },
+    {
+      "rank": 5,
+      "category": "セキュリティ",
+      "title": "NewsPicksの情報漏えい、原因はBIツールMetabaseの脆弱性",
+      "summary": "NewsPicksを運営するユーザベースは、漏えいの原因がMetabaseのログイン前SQLインジェクション脆弱性（CVE-2026-72898、CVSS 10.0）だったと公表した。パッチ公開前日の8月11日にデータが盗まれ、攻撃者は多要素認証を回避して管理者APIキーを作り、9月28日まで断続的にアクセスしていた。クレジットカード情報の一部36万1598件、メールアドレス32万2531件などが漏えいした。",
+      "why": "社内向けBIや管理ツールを外部公開していると、パッチ適用前でも攻撃されうるため、公開範囲の制限が重要になる。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/18/2000003300/",
+      "published": "2026-11-18"
+    },
+    {
+      "rank": 6,
+      "category": "クラウド",
+      "title": "AppleのiCloudやApp Storeで大規模障害、原因は内部アップデート",
+      "summary": "11月17日、iCloudへのサインインができなくなるなど、App Store、Apple Music、Apple Payを含むApple の複数サービスで障害が起きた。Appleは原因を内部のアップデートとし、サイバー攻撃は否定している。",
+      "why": "Apple IDに依存するアプリやサインイン機能は外部障害の影響を受けるため、障害時の振る舞いを設計に入れておく必要がある。",
+      "source": "9to5Mac",
+      "url": "https://9to5mac.com/2026/11/17/icloud-app-store-and-other-apple-services-hit-by-ongoing-outage/",
+      "published": "2026-11-17"
+    },
+    {
+      "rank": 7,
+      "category": "その他",
+      "title": "KDDI、ネットにつながらない携帯「INFOBAR ZERO」を発表",
+      "summary": "KDDIは通話とSMSだけに対応しインターネットに接続しない携帯電話「INFOBAR ZERO」を12月25日に発売する。価格は税込3万2780円で、INFOBARの新機種は約8年ぶり。デジタル利用を減らしたい若年層などを想定し、販売規模は従来機より一桁小さいと見込んでいる。",
+      "why": "スマホ離れの需要を大手キャリアが製品化した例で、端末の多様化と通信サービスの設計に影響しうる。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/18/2000003288/",
+      "published": "2026-11-18"
+    }
+  ]
+}
