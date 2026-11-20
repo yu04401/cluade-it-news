@@ -1,0 +1,107 @@
+{
+  "date": "2026-11-21",
+  "generated_at": "2026-11-21T05:45+09:00",
+  "trend": "PHP・Ruby・VMware vCenterと、Webとインフラの土台を担うソフトに緊急度の高い脆弱性修正が集中した。AI分野ではAnthropicの上場に加え、PC操作エージェントやAIによる防御サービスなど「エージェント化」の動きが続いている。",
+  "items": [
+    {
+      "rank": 1,
+      "category": "セキュリティ",
+      "title": "PHPに「緊急」脆弱性7件、国内ゲームやチケットサイトが緊急メンテ",
+      "summary": "PHPが11月19日に全サポート版向けのセキュリティリリースを公開し、リモートコード実行につながり得るCVE-2026-115560（CVSS 9.2）など重大な脆弱性7件を修正した。国内ではウマ娘、グラブル、イープラスなどがサービスを一時停止して対応している。",
+      "why": "PHPで動くWebサービスやツールを運用しているなら、全ブランチが対象のため即時のアップデートが必要。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/20/2000003357/",
+      "published": "2026-11-20"
+    },
+    {
+      "rank": 2,
+      "category": "セキュリティ",
+      "title": "VMware vCenterに認証回避のゼロデイ、中国系グループが2カ月以上前から悪用",
+      "summary": "BroadcomがvCenterの認証回避脆弱性CVE-2026-123890（CVSS 9.8）を修正した。回避策はなく、Googleの脅威インテリジェンスチームによると中国系グループが9月上旬からゼロデイとして悪用し、管理者権限の奪取とデータ窃取を行っていた。",
+      "why": "社内の仮想化基盤がvCenterなら、パッチ適用と侵害痕跡の確認を急ぐ必要がある。",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/china-linked-hackers-exploit-critical.html",
+      "published": "2026-11-20"
+    },
+    {
+      "rank": 3,
+      "category": "ビジネス",
+      "title": "AnthropicがNasdaq上場、IPO調達額は史上最大の813億ドル",
+      "summary": "Anthropicが公開価格83ドルでNasdaqに上場し、調達額は813億ドルとIPO史上最大になった。初値は公開価格を34％上回る111.50ドルで、初日は97ドル台で取引を終えた。",
+      "why": "Claudeを業務で使う開発者にとって、主要AIベンダーの資金力と株主への説明責任が大きく変わる節目になる。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/20/2000003354/",
+      "published": "2026-11-20"
+    },
+    {
+      "rank": 4,
+      "category": "セキュリティ",
+      "title": "デジタル庁の政府機関向けファイル共有サービスで情報漏えいの可能性",
+      "summary": "デジタル庁が、政府機関向けのファイル共有サービスに7月末から第三者がアクセスしていた可能性があると明らかにした。行政機関の共通基盤での事案で、影響範囲の調査が続いている。",
+      "why": "政府の共通SaaSでも長期間の不正アクセスに気づけなかった例で、アクセスログ監視の重要性を示している。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/20/2000003381/",
+      "published": "2026-11-20"
+    },
+    {
+      "rank": 5,
+      "category": "セキュリティ",
+      "title": "Rubyが脆弱性7件を修正、既定構成のRailsに認証前で影響する「Ruby2Shell」も",
+      "summary": "Ruby 4.0.10、3.4.13、3.3.14が公開され、正規表現エンジンや大文字小文字変換処理のメモリ安全性に関する脆弱性7件が修正された。一部はPoCでリモートコード実行が確認されているが、実際の攻撃は報告されていない。",
+      "why": "Railsアプリや社内のRubyスクリプトを持つ環境では、ランタイム自体の更新が必要になる。",
+      "source": "The Hacker News",
+      "url": "https://thehackernews.com/2026/11/ruby-releases-fixes-for-7-regex-and.html",
+      "published": "2026-11-19"
+    },
+    {
+      "rank": 6,
+      "category": "AI",
+      "title": "Microsoft、AIによる攻撃をAIエージェントで迎え撃つ「Microsoft Perception」を提供開始",
+      "summary": "Microsoftが、AIを使ったサイバー攻撃に対してAIエージェントで検知・対処する新しいセキュリティサービス「Microsoft Perception」の提供を始めた。攻撃側のAI活用が進む中で、防御側も自動化を強める流れの製品になる。",
+      "why": "Windows/Microsoft 365中心の組織では、セキュリティ運用の自動化の選択肢として検討対象になる。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/20/2000003368/",
+      "published": "2026-11-20"
+    },
+    {
+      "rank": 7,
+      "category": "AI",
+      "title": "Mac版Geminiに「computer use」機能、ユーザーの代わりにアプリを操作",
+      "summary": "GoogleがmacOS版Geminiに、アプリやファイル、Webをまたいでバックグラウンドで作業する「computer use」機能を追加した。まず米国のAI Plus、Pro、Ultraの利用者向けに提供する。",
+      "why": "デスクトップ操作を任せるAIエージェントが主要ベンダーのクライアントに標準搭載され始めた。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/20/2000003356/",
+      "published": "2026-11-20"
+    },
+    {
+      "rank": 8,
+      "category": "クラウド",
+      "title": "Googleの宇宙AIデータセンター構想、Blue Originと提携し2029年に衛星打ち上げへ",
+      "summary": "Googleが宇宙空間にAIデータセンターを置く構想「Project Suncatcher」で、ジェフ・ベゾス氏のBlue Originと提携した。2029年に衛星を打ち上げる計画としている。",
+      "why": "AI計算需要に対して電力と冷却の制約が深刻化しており、データセンターの立地が地上の外にまで広がり始めた。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/20/2000003358/",
+      "published": "2026-11-20"
+    },
+    {
+      "rank": 9,
+      "category": "ビジネス",
+      "title": "AMD株が6％超下落、空売り筋Hunterbrookが中国関連や「循環取引」を指摘",
+      "summary": "空売り投資家のHunterbrookがAMDの中国との関係や「循環的な取引」を問題視するレポートを出し、AMDの株価は6％以上下落した。AI向け半導体の取引構造に対する市場の警戒感が表れた形だ。",
+      "why": "AI向けGPU市場の第2勢力であるAMDの動向は、GPU調達やROCm採用の判断にも関わる。",
+      "source": "Bloomberg",
+      "url": "https://www.bloomberg.com/news/articles/2026-11-19/amd-slides-after-hunterbrook-shorts-stock-cites-circular-deals",
+      "published": "2026-11-19"
+    },
+    {
+      "rank": 10,
+      "category": "その他",
+      "title": "英審判所、Appleへの暗号化解除命令の存在を政府が認めるよう判断",
+      "summary": "英国の調査権限審判所（IPT）が、政府がAppleに出した「技術的能力通知（TCN）」の存在を公に認めなければならないと判断した。政府が秘密にしてきた、暗号化へのバックドア要求をめぐる命令が対象になっている。",
+      "why": "エンドツーエンド暗号化と政府アクセスをめぐる議論は、暗号を扱うアプリの設計方針にも影響する。",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/11/19/u-k-government-forced-to-disclose-secret-apple-backdoor-order/",
+      "published": "2026-11-19"
+    }
+  ]
+}
