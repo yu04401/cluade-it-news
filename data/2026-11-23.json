@@ -1,0 +1,97 @@
+{
+  "date": "2026-11-23",
+  "generated_at": "2026-11-23T05:55+09:00",
+  "trend": "週末はAIの「サプライチェーン」が話題の中心で、AIルーター経由の秘密情報漏えいや米国の輸出規制拡大など、AIを使う側・作る側の両方でリスク管理が問われた。一方でAIを使った数学の証明が相次いで認定・発表され、研究用途での実力も示された。",
+  "items": [
+    {
+      "rank": 1,
+      "category": "セキュリティ",
+      "title": "OpenRouterなどのAIルーターで秘密情報の漏えいやAPIキー窃取が多発、研究者が囮の認証情報で確認",
+      "summary": "研究者がOpenRouterやVercelなど複数のモデルを中継するAIルーターに囮（カナリア）の認証情報を含むリクエストを送り、その扱いを調べた。プライバシーが守られない例が多く、仕込んだキーが盗まれるケースも確認されたとArs Technicaが報じた。",
+      "why": "LLMアプリでAPIキーや社内データをプロンプトに載せている場合、中継サービスの選定と秘密情報の除去を見直す必要がある。",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/security/2026/11/a-leaky-ai-supply-chain-is-exposing-secret-user-data-at-an-alarming-rate/",
+      "published": "2026-11-21"
+    },
+    {
+      "rank": 2,
+      "category": "ハード",
+      "title": "米国の新たな輸出規制、家電向けSoCなど対象チップが拡大",
+      "summary": "米国の新しい輸出規制はAI向けの先端品だけでなく、家電製品向けSoCを含むより広い範囲の半導体に影響すると日経アジアが報じた。サプライチェーン各社からは広範な混乱を懸念する声が出ている。",
+      "why": "組み込み機器向けの部品調達や出荷先の規制確認に、AIと無関係な製品でも影響が及ぶ可能性がある。",
+      "source": "Nikkei Asia",
+      "url": "https://asia.nikkei.com/business/tech/semiconductors/chip-supply-chain-warns-of-broader-disruption-from-new-us-export-controls",
+      "published": "2026-11-21"
+    },
+    {
+      "rank": 3,
+      "category": "AI",
+      "title": "Claudeと共同の「リーマン予想」証明、Leanコミュニティが正しいと認定",
+      "summary": "AnthropicのLevent Alpoge氏が11月20日（米国時間）にClaudeと見つけたと主張したリーマン予想の証明は、1700万行のLean形式証明として公開された。21日にLeanとMathlibのコミュニティが共同声明で正しいと認定し、MITのAndrew Sutherland氏ら外部研究者もエラーなくコンパイルできたという。人間が読める論文はまだない。",
+      "why": "形式検証とLLMを組み合わせれば、膨大な証明でも機械的に正しさを確かめられることを示した事例。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/22/2000003388/",
+      "published": "2026-11-22"
+    },
+    {
+      "rank": 4,
+      "category": "ビジネス",
+      "title": "Amazon、AIスタートアップDecartを75億ドルで買収へ最終調整か",
+      "summary": "AmazonがAIスタートアップのDecartを75億ドルで買収する交渉の最終段階にあり、早ければ来週にも合意する可能性があるとFinancial Timesが報じた。",
+      "why": "AWSを含むAmazonのAI戦略が、自社開発に加えて買収でも加速していることを示す。",
+      "source": "Financial Times",
+      "url": "https://www.ft.com/content/dc7749dc-0f40-44a6-80bc-7f747d383616",
+      "published": "2026-11-21"
+    },
+    {
+      "rank": 5,
+      "category": "AI",
+      "title": "NYUとAnthropicの研究者、AIを使ったナビエ–ストークス方程式の爆発解の証明を発表",
+      "summary": "NYUのTristan Buckmaster氏とAnthropicのLevent Alpöge氏が、AIの助けを借りてナビエ–ストークス方程式の解が爆発することを示す証明を公表したとScientific Americanが報じた。",
+      "why": "リーマン予想に続き、流体シミュレーションの基礎となる方程式でもAIが研究の主力になりつつある。",
+      "source": "Scientific American",
+      "url": "https://www.scientificamerican.com/article/ai-just-solved-the-real-navier-stokes-problem/",
+      "published": "2026-11-21"
+    },
+    {
+      "rank": 6,
+      "category": "ビジネス",
+      "title": "中国大手テック企業の設備投資、2026年は倍増の1390億ドル見込み",
+      "summary": "調査会社Rhodiumの分析として、中国の大手テック企業の2026年の設備投資が倍増し1390億ドルに達する見込みだとNew York Timesが報じた。AI向けの投資が主な要因とされる。",
+      "why": "輸出規制下でも中国のAIインフラ投資が拡大しており、半導体需給や競争環境に影響する。",
+      "source": "The New York Times",
+      "url": "https://www.nytimes.com/2026/11/20/business/china-ai-investment-spending.html",
+      "published": "2026-11-20"
+    },
+    {
+      "rank": 7,
+      "category": "その他",
+      "title": "Microsoft、「To Do」アプリを2027年6月30日に終了へ",
+      "summary": "MicrosoftがタスクアプリのMicrosoft To Doを2027年6月30日で提供終了する計画であることが分かり、利用者から反発が出ているとGeekWireが報じた。",
+      "why": "To DoやそのAPIと連携した社内ツール・ワークフローがあれば、移行先の検討が必要になる。",
+      "source": "GeekWire",
+      "url": "https://www.geekwire.com/2026/microsoft-to-do-users-make-a-big-to-do-over-popular-task-apps-retirement/",
+      "published": "2026-11-21"
+    },
+    {
+      "rank": 8,
+      "category": "ハード",
+      "title": "中性原子方式の量子コンピューター、超電導方式より誤り訂正が容易な可能性",
+      "summary": "レーザーで捕捉した原子を使う量子コンピューターは、極低温に冷やす超電導チップ方式よりも量子ビットの誤り訂正をしやすい可能性があるとNew York Timesが報じた。",
+      "why": "実用的な量子計算の実現時期や主流方式の見通しに関わる。",
+      "source": "The New York Times",
+      "url": "https://www.nytimes.com/2026/11/20/science/quantum-computer-neutral-atoms.html",
+      "published": "2026-11-20"
+    },
+    {
+      "rank": 9,
+      "category": "AI",
+      "title": "Ubisoft、AIによるゲームプレイ開発の新子会社「Motherbrain」を設立",
+      "summary": "UbisoftがAIを活用したゲームプレイの革新に取り組む子会社Motherbrainを立ち上げたとGamesIndustry.bizが報じた。",
+      "why": "ゲーム開発の現場でAIを専任組織で本格導入する流れが大手にも広がっている。",
+      "source": "GamesIndustry.biz",
+      "url": "https://www.gamesindustry.biz/ubisoft-launches-motherbrain-a-new-subsidiary-focused-on-ai-driven-gameplay-innovation",
+      "published": "2026-11-21"
+    }
+  ]
+}
