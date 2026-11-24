@@ -1,0 +1,107 @@
+{
+  "date": "2026-11-25",
+  "generated_at": "2026-11-25T05:48+09:00",
+  "trend": "AIエージェントが攻撃と防御の両方で実戦投入され始めたことを示すニュースが並び、Check PointやRadwareなどセキュリティ製品・ベンダー自体が侵害される事例も目立った。開発・クラウド分野ではjQuery 4.1やDynamoDB互換のExtendDB 1.0など、既存資産を活かす実務的なリリースが続いた。",
+  "items": [
+    {
+      "rank": 1,
+      "category": "セキュリティ",
+      "title": "Check Pointの管理サーバー24台が侵害、17カ国22組織で諜報型の攻撃",
+      "summary": "GreyNoiseは、Check Pointのセキュリティ管理サーバーを狙う継続中のキャンペーン（GT13）を確認し、17カ国の政府・金融・エネルギーなど22組織で24台が侵害されたと報告した。侵害後にはSmartConsoleの認証バイパス脆弱性CVE-2026-16232が悪用され、ファイアウォールのDBや認証情報、内部CAファイルの窃取、セキュリティポリシーの無効化まで行われていた。Citrix NetScalerやIvanti、Windows NetLogonなど他製品の脆弱性も併せて狙われている。",
+      "why": "境界防御の管理サーバーそのものが奪われるとポリシー無効化や横展開を許すため、Check Point利用組織はパッチ適用と侵害痕跡の確認が急務。",
+      "source": "BleepingComputer",
+      "url": "https://www.bleepingcomputer.com/news/security/hackers-compromise-check-point-servers-in-22-organizations/",
+      "published": "2026-11-25"
+    },
+    {
+      "rank": 2,
+      "category": "セキュリティ",
+      "title": "攻撃者のAIエージェントがほぼ自律でゼロデイを発見・悪用、Amazonが報告",
+      "summary": "Amazonによると、攻撃者はオープンソースのAIペネトレーションテスト基盤「Cairn」にIPアドレス一覧と「シェルを取れ」という指示だけを与え、エージェントが東アジアの大学サーバー上の医療画像AIアプリにゼロデイを見つけて掌握した。Palo Alto Networksも同基盤を使った攻撃で少なくとも10組織が侵害されたと報告している。Cairnはモデル非依存で、Claude CodeやCodex、GLMやDeepSeekなどと組み合わせて使われていた。",
+      "why": "人手をほぼ介さない攻撃が現実になり、公開サービスは発見から悪用までの時間が大幅に縮む前提で脆弱性管理を見直す必要がある。",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/security/2026/11/amazon-says-hackers-ai-agents-found-and-exploited-0-day-with-little-human-input/",
+      "published": "2026-11-24"
+    },
+    {
+      "rank": 3,
+      "category": "セキュリティ",
+      "title": "OpenAIとCisco、AIがeBPFでLinuxを守るOSS「Shirudo」を公開",
+      "summary": "OpenAIとCiscoは、AIエージェントがeBPFの制御プログラム「Shield」を動的に書き、稼働中のLinuxで悪用につながる処理だけを遮断するオープンソース基盤「Shirudo」を発表した。恒久パッチを当てるまでの暫定対策という位置付けで、Shieldは適用前にアプリへの影響をテストできる。OpenAIの試験では、Codexで作ったShieldで再起動なしにElasticsearchへの「Java4Shell」悪用を防げたという。",
+      "why": "パッチ検証に時間がかかる本番Linuxで、サービスを止めずに脆弱性を一時的に塞ぐ新しい選択肢になり得る。",
+      "source": "gihyo.jp",
+      "url": "https://gihyo.jp/article/2026/11/shirudo",
+      "published": "2026-11-24"
+    },
+    {
+      "rank": 4,
+      "category": "ビジネス",
+      "title": "米商務省がMegaspeedをエンティティリストに追加、NVIDIAフアン氏復帰の直後",
+      "summary": "米商務省は、AIチップの中国への迂回輸出の疑いがあるシンガポールのMegaspeedと、そのマレーシア・タイの関連会社をエンティティリストに加え、取引を制限した。同社はフアン氏の騒動の中心にある企業で、商務省は2024年から密輸疑惑を調べていた。フアン氏がNVIDIAのCEOに復帰した数時間後の措置となった。",
+      "why": "先端GPUの輸出管理が東南アジア経由のルートにも厳しく及ぶことを示し、AIインフラの調達や供給に影響し得る。",
+      "source": "The Verge",
+      "url": "https://www.theverge.com/policy/1041270/nvidia-megaspeed-commerce-dept-entity-list",
+      "published": "2026-11-25"
+    },
+    {
+      "rank": 5,
+      "category": "開発",
+      "title": "jQuery 4.1正式リリース、3.x系は3.8で最後に",
+      "summary": "jQuery 4.1は内部で使っていたgetElementsByTagNameなどをquerySelectorAllに統一し、リダイレクト後のURLを取れるjqXHR.responseURLの追加やuniqueSort()の高速化も行った。同時に公開されたjQuery 3.8はセレクタのReDoS脆弱性の修正などを含む3.x系最後のリリースで、今後は重大な不具合や脆弱性の修正のみになる。IE11のサポートは4.x系で続くが、5.0で削除される見通し。",
+      "why": "社内Webツールなどで3.x系を使い続けている場合、3.8へのセキュリティ更新と4.x系への移行計画を立てる時期に来た。",
+      "source": "Publickey",
+      "url": "https://www.publickey1.jp/blog/26/jquery_41queryselectoralljquery_3xjquery_38.html",
+      "published": "2026-11-25"
+    },
+    {
+      "rank": 6,
+      "category": "クラウド",
+      "title": "AWSのDynamoDB互換OSS「ExtendDB」がv1.0に、Windowsのローカルでも動作",
+      "summary": "AWSは、DynamoDB互換のデータベースをWindows・macOS・Linuxのローカル環境に構築できるオープンソース「ExtendDB」のバージョン1.0到達を発表した。ExtendDBはフロントエンド部分を担い、エンジンにはPostgreSQL（リファレンス構成）、SQLite、Cassandra、MongoDBのいずれかをプラグインで使う。DynamoDBと同じSDK・コードでアクセスでき、ローカルでの開発・テストやオンプレミスでの利用を想定している。",
+      "why": "DynamoDB前提のアプリをクラウドに出さずにテストしたり、オンプレ版を用意したりする選択肢が公式OSSとして整った。",
+      "source": "Publickey",
+      "url": "https://www.publickey1.jp/blog/26/awsdynamodbextenddb10.html",
+      "published": "2026-11-25"
+    },
+    {
+      "rank": 7,
+      "category": "セキュリティ",
+      "title": "Radwareが侵害を公表、顧客のS3・Azure Blobのアクセスキーが露出",
+      "summary": "Radwareは、認証なしでインターネットから到達できる状態だった内部のCloud WAF管理APIが11月19日に不正アクセスを受けたと顧客に報告した。顧客の連絡先に加え、一部顧客がログ出力用に設定したAWS S3、Azure Blob Storage、SFTPの認証情報が見られた可能性がある。同社はログ出力用の資格情報を早急にローテーションし、11月19日以降のストレージのアクセスログを確認するよう呼びかけている。",
+      "why": "RadwareのWAFからAzureやAWSへログを出している場合、SASトークンやアクセスキーを今すぐ再発行すべき事案。",
+      "source": "BleepingComputer",
+      "url": "https://www.bleepingcomputer.com/news/security/radware-discloses-breach-exposing-customer-cloud-access-keys/",
+      "published": "2026-11-25"
+    },
+    {
+      "rank": 8,
+      "category": "クラウド",
+      "title": "Microsoft、サーバーレスPostgreSQL「HorizonDB」をFabricでプレビュー提供",
+      "summary": "Microsoftは、先週一般提供を始めたPostgreSQLサービス「HorizonDB」をMicrosoft Fabricでパブリックプレビューとして提供開始した。単一のPostgreSQLエンドポイントに投げたクエリを、トランザクション系と分析系の適切なエンジンに振り分ける。アナリストは、DatabricksやSnowflakeに追随する動きだが、統合が進むほど他社への移行は難しくなると指摘している。",
+      "why": "Azure上でPostgreSQLを使う.NETアプリが、データ移動なしに分析基盤とつながる構成を検討できるようになる。",
+      "source": "The Register",
+      "url": "https://www.theregister.com/databases/2026/11/24/microsoft-brings-serverless-postgresql-into-fabric-to-bridge-transactions-and-analytics/5311841",
+      "published": "2026-11-25"
+    },
+    {
+      "rank": 9,
+      "category": "AI",
+      "title": "Z.ai「GLM-5.4」発表、層を2回回すLoop Transformerで750Bながら2〜3T級の性能",
+      "summary": "Z.aiは、GLM-5ベースモデルの28層を2回繰り返し実行するLoop Transformerを初めて採用したフラグシップモデル「GLM-5.4」を発表した。7500億パラメータで2〜3兆規模のモデル並みの性能をうたい、2回目のループで1回目のKVキャッシュを再利用して長文処理のコストを抑える。ZCodeやGLM Coding Planで提供し、APIとオープンウェイトは安全性評価後に公開する予定。",
+      "why": "パラメータを増やさずに推論の深さを稼ぐ手法が実用モデルに入り、コーディング向けモデルの選択肢とコストの見通しが変わる。",
+      "source": "PC Watch",
+      "url": "https://pc.watch.impress.co.jp/docs/news/2158757.html",
+      "published": "2026-11-24"
+    },
+    {
+      "rank": 10,
+      "category": "ビジネス",
+      "title": "Anthropic株がIPO価格を割り込む、上場から1週間足らず",
+      "summary": "Anthropicの株価は11月24日の取引で一時76ドルまで下がり、公開価格の83ドルを下回った。前日終値からは約12%の下落で、Nasdaq上場初日の111.50ドルから1週間足らずでの急落となる。同日はNVIDIA株も7%超下げており、AI関連銘柄への評価が他のAIスタートアップの資金調達やIPOに波及する可能性がある。",
+      "why": "AI企業への市場の評価は、開発ツールやAPIの価格・投資のペースにも影響するため、動向を押さえておきたい。",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/11/24/anthropic-shares-fall-below-ipo-price-a-worrying-sign-for-ai-startups/",
+      "published": "2026-11-25"
+    }
+  ]
+}
