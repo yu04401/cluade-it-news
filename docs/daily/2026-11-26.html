@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ITニュース朝刊</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Kaku+Gothic+New:wght@700;900&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* 1カラムの読み物。左に順位、右に本文。上部にカテゴリ絞り込み */
+:root {
+  --bg: #f2f4f7;
+  --surface: #ffffff;
+  --ink: #16202a;
+  --muted: #5a6572;
+  --line: #dce1e8;
+  --accent: #1f5fbf;
+  --accent-soft: #e4ecf8;
+  --c-ai: #7445d1;
+  --c-sec: #c2402b;
+  --c-cloud: #17807f;
+  --c-hw: #9a6510;
+  --c-biz: #3b6d2d;
+  --c-dev: #1f5fbf;
+  --c-other: #6b7480;
+  --f-display: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --f-body: "BIZ UDPGothic", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1318; --surface: #151c23; --ink: #e4e9ef; --muted: #96a2ae; --line: #252f39;
+    --accent: #72a6f3; --accent-soft: #1b2a3f;
+    --c-ai: #a98cf2; --c-sec: #f08672; --c-cloud: #5cc6c4; --c-hw: #e2ab4f; --c-biz: #8cc475; --c-dev: #72a6f3; --c-other: #9aa4ae;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1318; --surface: #151c23; --ink: #e4e9ef; --muted: #96a2ae; --line: #252f39;
+  --accent: #72a6f3; --accent-soft: #1b2a3f;
+  --c-ai: #a98cf2; --c-sec: #f08672; --c-cloud: #5cc6c4; --c-hw: #e2ab4f; --c-biz: #8cc475; --c-dev: #72a6f3; --c-other: #9aa4ae;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 15px;
+  line-height: 1.75;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+}
+.wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+
+header { display: flex; flex-direction: column; gap: 10px; }
+.eyebrow {
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em;
+  color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 14px;
+}
+.eyebrow b { color: var(--accent); font-weight: 700; }
+h1 {
+  font-family: var(--f-display); font-weight: 900; font-size: clamp(30px, 7vw, 44px);
+  line-height: 1.15; margin: 0; letter-spacing: .01em; text-wrap: balance;
+}
+.trend {
+  margin: 4px 0 0; padding: 12px 14px; background: var(--accent-soft);
+  border-radius: 8px; font-size: 15px; line-height: 1.7;
+}
+.trend span { font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; color: var(--accent); display: block; margin-bottom: 2px; }
+
+.filters { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+.filters::-webkit-scrollbar { display: none; }
+.chip {
+  flex: none; font: 700 13px/1 var(--f-body); color: var(--muted);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+  padding: 8px 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
+}
+.chip i { width: 8px; height: 8px; border-radius: 50%; background: var(--dot, var(--muted)); }
+.chip .n { font-family: var(--f-mono); font-size: 11px; font-weight: 500; }
+.chip[aria-pressed="true"] { color: var(--surface); background: var(--ink); border-color: var(--ink); }
+.chip[aria-pressed="true"] i { background: var(--surface); }
+.chip:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+ol.news { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.item { display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding: 20px 18px; border-top: 1px solid var(--line); }
+.item:first-child { border-top: 0; }
+.rank { font-family: var(--f-mono); font-weight: 700; font-size: 22px; line-height: 1.2; color: var(--muted); font-variant-numeric: tabular-nums; }
+.item:nth-child(-n+3) .rank { color: var(--accent); }
+.body { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; font-size: 12px; color: var(--muted); }
+.cat { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; color: var(--dot); }
+.cat::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dot); }
+.date { font-family: var(--f-mono); font-size: 11.5px; }
+h2 { font-family: var(--f-display); font-weight: 700; font-size: 18px; line-height: 1.45; margin: 0; text-wrap: balance; overflow-wrap: anywhere; }
+h2 a { color: inherit; text-decoration: none; }
+h2 a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+.sum { margin: 0; overflow-wrap: anywhere; }
+.why { margin: 2px 0 0; font-size: 13.5px; color: var(--muted); padding-left: 10px; border-left: 2px solid var(--line); }
+.why b { color: var(--ink); font-weight: 700; }
+.src { font-size: 12.5px; }
+.src a { color: var(--accent); text-decoration: none; overflow-wrap: anywhere; }
+.src a:hover { text-decoration: underline; }
+
+.empty { padding: 40px 22px; text-align: left; display: flex; flex-direction: column; gap: 8px; }
+.empty strong { font-family: var(--f-display); font-size: 18px; }
+.empty p { margin: 0; color: var(--muted); }
+
+footer { font-size: 12px; color: var(--muted); line-height: 1.7; }
+@media (max-width: 480px) {
+  .item { grid-template-columns: 30px 1fr; gap: 10px; padding: 18px 14px; }
+  .rank { font-size: 18px; }
+  h2 { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+<script type="application/json" id="news-data">{"date": "2026-11-26", "generated_at": "2026-11-26T05:50+09:00", "trend": "11月のWindows更新でNTLM認証が壊れる問題、Drupalの悪用、1Passwordや楽天証券の情報漏えいと、実務に直結するセキュリティ案件が並んだ。一方でMCPにスキル配信機能が入り、Google WorkspaceのMCPサーバも正式版になるなど、AIエージェントと業務ツールをつなぐ仕組みが急速に固まりつつある。", "items": [{"rank": 1, "category": "セキュリティ", "title": "11月のWindows更新でNTLM認証が失敗、Microsoftが回避策を案内", "summary": "Windows RPCランタイムのリモートコード実行脆弱性（CVE-2026-118737）を直す11月の更新は、NTLMのメッセージ署名を強制する第1段階の変更を含む。NTLMを正しく実装していない認証プロキシやSSO製品、アプリのパッケージング製品で認証が失敗することをMicrosoftが認めた。修正版はまだなく、レジストリ値 ClientAllowUnsignedNtlm を1にする一時回避策とKerberosへの切り替えを勧めている。", "why": "社内ツールや自作のNTLM実装、プロキシ経由の認証が更新後に急に通らなくなる可能性があり、Windows環境の開発・運用担当は影響範囲の確認が必要。", "source": "BleepingComputer", "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-confirms-authentication-issues-after-november-updates/", "published": "2026-11-25"}, {"rank": 2, "category": "セキュリティ", "title": "1Passwordが社内システム侵害を公表、顧客の氏名とメールが流出", "summary": "1Passwordは11月19日に侵入を検知した。攻撃者は従業員のGitHub企業アカウントを乗っ取って社内サーバーに悪意あるコードを送り込み、顧客の氏名、ログイン用メールアドレス、アカウント作成日と最終ログイン日時を持ち出した。保管庫のパスワードやシークレットキーには一度も届いておらず、アプリと拡張機能にも影響はないとしている。", "why": "開発者アカウント経由でサプライチェーンの内側に入られた事例で、流出したメールアドレスを使ったフィッシングにも注意が要る。", "source": "TechCrunch", "url": "https://techcrunch.com/2026/11/25/1password-said-hackers-broke-into-its-internal-systems-but-customer-passwords-are-safe/", "published": "2026-11-25"}, {"rank": 3, "category": "セキュリティ", "title": "Drupalのインストーラー悪用によるRCE脆弱性、実際の攻撃を確認", "summary": "Drupal本体の install.php を使ってサイトを再インストールさせ、乗っ取りやリモートコード実行に至る重大な脆弱性（CVE-2026-132165）が、11月19日から実際に悪用されていた。発見したのはAnthropicのOSS Scanner。CISAも既知の悪用済み脆弱性カタログに追加し、すぐに更新できない場合は /core/install.php へのアクセス遮断を勧めている。", "why": "認証なしで乗っ取られるため、Drupalを使うサイトは即時の更新か install.php の遮断が必須。", "source": "BleepingComputer", "url": "https://www.bleepingcomputer.com/news/security/hackers-now-exploit-critical-drupal-rce-flaw-to-hijack-sites/", "published": "2026-11-25"}, {"rank": 4, "category": "セキュリティ", "title": "楽天証券、約441万件の顧客情報と約1198万口座分のログインIDの漏えいを確認", "summary": "楽天証券は11月17日に公表した不正アクセスについて調査結果を発表した。部店・顧客コード・ログインIDが約1198万口座分、氏名や住所、勤務先、出金先口座、年収・金融資産の申告情報などが約441万件漏えいしていた。テスト環境内にあった顧客情報が外部に持ち出されたという。", "why": "本番データをテスト環境に置く運用が大規模漏えいにつながった例で、開発環境のデータ管理を見直すきっかけになる。", "source": "ITmedia NEWS", "url": "https://www.itmedia.co.jp/news/article/2611/25/2000003435/", "published": "2026-11-25"}, {"rank": 5, "category": "開発", "title": "MCPに「Skills over MCP」がβ追加、ツールの使い方もMCPサーバから配信", "summary": "Model Context Protocolに、MCPサーバからAIエージェントへスキルを配信できる新機能がβ版として加わった。これまで手元のSKILL.mdなどで別に配っていた使い方の知識を、サーバ側が常に最新の状態で提供できる。必要なときだけ読み込むため、コンテキストの節約にもなる。", "why": "MCPサーバを作る側は、ツールと一緒に使い方まで配れるようになり、ツール更新時にスキルが古くなる問題を解消できる。", "source": "Publickey", "url": "https://www.publickey1.jp/blog/26/mcpskills_over_mcpmcp.html", "published": "2026-11-26"}, {"rank": 6, "category": "クラウド", "title": "Google Workspace MCPサーバとCLI「gwscli」が正式版に", "summary": "GoogleはGmail、ドライブ、ドキュメント、スプレッドシート、スライド、カレンダー、Chat、ToDoリストの8サービスに対応するマネージドMCPサーバと、ローカルから操作するCLIを正式版にした。無料枠は各製品1日5,000リクエストで、送信や共有の前に人の確認を挟む仕組みを備える。AIエージェントからのアクセスは今後MCP経由を求める方針で、REST APIを使うエージェントには2027年2月までの移行を求めている。", "why": "Workspaceと連携するエージェントやスクリプトを作っている場合、REST APIからMCPへの移行計画が必要になる。", "source": "Publickey", "url": "https://www.publickey1.jp/blog/26/google_workspace_mcpgoogle_workspace_cli.html", "published": "2026-11-26"}, {"rank": 7, "category": "AI", "title": "Claudeのアーティファクトをデスクトップアプリ化する「Install as app」、全プランでβ", "summary": "Anthropicは、Claudeで作ったアーティファクトをmacOSとWindowsのアプリとしてインストールできる機能を発表した。専用ウィンドウで動き、Claudeやコネクタを使え、通知やメニューバー・システムトレイへの項目追加にも対応する。パッケージ化や署名、APIキーは不要で、元のアーティファクトを編集すると自動で更新される。", "why": "社内向けの小さな業務ツールを、配布やビルドの手間なしでWindowsデスクトップに置けるようになる。", "source": "ITmedia NEWS", "url": "https://www.itmedia.co.jp/news/article/2611/25/2000003431/", "published": "2026-11-25"}, {"rank": 8, "category": "ハード", "title": "GeForceドライバがSSDに大量書き込みする不具合、修正版621.40を公開", "summary": "GeForceドライバ621.14や621.24で、ログファイル nvlog.nvlgstg に1時間あたり最大30GBほど書き込む不具合が報告されていた。NVIDIAは11月24日、修正を含む通常版ドライバ「GeForce Game Ready Driver 621.40」を公開した。写真アプリでD-Log H.265動画の色がおかしくなる問題なども直している。", "why": "開発機でGeForceを使っているならSSD寿命を削られている可能性があり、早めの更新が望ましい。", "source": "PC Watch", "url": "https://pc.watch.impress.co.jp/docs/news/2159016.html", "published": "2026-11-25"}, {"rank": 9, "category": "AI", "title": "ChatGPTがChatとWorkの利用枠を統合、ヘビーユーザーは上限に早く達する恐れ", "summary": "OpenAIはChatGPTでChatとWorkを1つの体験に統合する更新を一部のProユーザーから始めた。両者は1つの利用量メーターを共有し、Instantモデルでの会話だけは無制限で枠を消費しない。大半の利用者には影響しないとする一方、ごく一部のヘビーユーザーは上限に早く達する可能性があると認め、12月に広く展開する予定。", "why": "推論モデルを業務で多用しているチームは、12月以降の利用枠の減り方を見て契約やツールの使い分けを考える必要がある。", "source": "TechCrunch", "url": "https://techcrunch.com/2026/11/25/openai-says-heavy-chatgpt-users-may-hit-limits-sooner-as-it-merges-chat-and-work/", "published": "2026-11-25"}, {"rank": 10, "category": "ハード", "title": "FCC、SpaceXに最大100万基の「宇宙データセンター」衛星を条件付き許可", "summary": "米FCCは、軌道上データセンターとして使う「Starmind」衛星を最大100万基打ち上げる計画をSpaceXに条件付きで認めた。全基そろえば軌道上の衛星数はおよそ50倍になる。100,000基は2035年11月まで、全体は2040年11月までに展開する猶予が与えられたが、技術面・採算面で成り立つかはまだ示されていない。", "why": "AI向け計算資源の不足が宇宙にまで場所を求める段階に来ており、データセンター電力・立地問題の深刻さを示す。", "source": "Ars Technica", "url": "https://arstechnica.com/space/2026/11/the-fcc-has-authorized-spacex-to-deploy-1-million-satellites/", "published": "2026-11-25"}]}</script>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow" id="eyebrow"><b>IT DAILY</b><span id="dateLabel">—</span><span id="genLabel"></span></div>
+    <h1>ITニュース朝刊</h1>
+    <p class="trend" id="trend" hidden><span>TODAY'S TREND</span><em id="trendText" style="font-style:normal"></em></p>
+  </header>
+
+  <nav class="filters" id="filters" aria-label="カテゴリで絞り込み"></nav>
+
+  <ol class="news" id="list"></ol>
+
+  <footer>
+    <a href="../archive.html" style="color:var(--accent)">過去の号を見る</a><br>
+    毎朝6時に国内外のIT・テック系ニュースから重要度の高い10件を選び、要約して更新しています。要約はAIによるもので、詳細や正確な数値は各リンク先の元記事で確認してください。
+  </footer>
+</div>
+
+<script>
+(function () {
+  var CATS = {
+    "AI": "--c-ai", "セキュリティ": "--c-sec", "クラウド": "--c-cloud",
+    "ハード": "--c-hw", "ビジネス": "--c-biz", "開発": "--c-dev", "その他": "--c-other"
+  };
+  var data;
+  try { data = JSON.parse(document.getElementById("news-data").textContent); }
+  catch (e) { data = { items: [] }; }
+  var items = (data.items || []).slice().sort(function (a, b) { return (a.rank || 99) - (b.rank || 99); });
+
+  var WD = ["日", "月", "火", "水", "木", "金", "土"];
+  function fmtDate(s) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s || "");
+    if (!m) return "";
+    var d = new Date(+m[1], +m[2] - 1, +m[3]);
+    return m[1] + "." + m[2] + "." + m[3] + " (" + WD[d.getDay()] + ")";
+  }
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function dotVar(cat) { return "var(" + (CATS[cat] || "--c-other") + ")"; }
+
+  document.getElementById("dateLabel").textContent = fmtDate(data.date) || "初回更新待ち";
+  var g = /T(\d{2}:\d{2})/.exec(data.generated_at || "");
+  if (g) document.getElementById("genLabel").textContent = g[1] + " 更新";
+  if (data.trend) {
+    document.getElementById("trendText").textContent = data.trend;
+    document.getElementById("trend").hidden = false;
+  }
+
+  var list = document.getElementById("list");
+  var filters = document.getElementById("filters");
+
+  if (!items.length) {
+    filters.hidden = true;
+    var li = el("li", "empty");
+    li.appendChild(el("strong", null, "最初の号を準備中です"));
+    li.appendChild(el("p", null, "毎朝6時に、その日のITニュース上位10件がここに並びます。カテゴリ別に絞り込み、見出しから元記事に移動できます。"));
+    list.appendChild(li);
+    return;
+  }
+
+  items.forEach(function (it, i) {
+    var li = el("li", "item");
+    li.dataset.cat = it.category || "その他";
+    li.style.setProperty("--dot", dotVar(it.category));
+    li.appendChild(el("div", "rank", String(it.rank || i + 1).padStart(2, "0")));
+    var b = el("div", "body");
+    var meta = el("div", "meta");
+    meta.appendChild(el("span", "cat", it.category || "その他"));
+    if (it.published) meta.appendChild(el("span", "date", it.published.replace(/-/g, ".")));
+    b.appendChild(meta);
+    var h = el("h2");
+    if (it.url) {
+      var a = el("a", null, it.title);
+      a.href = it.url; a.target = "_blank"; a.rel = "noopener";
+      h.appendChild(a);
+    } else { h.textContent = it.title; }
+    b.appendChild(h);
+    if (it.summary) b.appendChild(el("p", "sum", it.summary));
+    if (it.why) {
+      var w = el("p", "why");
+      w.appendChild(el("b", null, "注目点 "));
+      w.appendChild(document.createTextNode(it.why));
+      b.appendChild(w);
+    }
+    if (it.source || it.url) {
+      var s = el("div", "src");
+      if (it.url) {
+        var sa = el("a", null, (it.source || "元記事") + " で読む →");
+        sa.href = it.url; sa.target = "_blank"; sa.rel = "noopener";
+        s.appendChild(sa);
+      } else { s.textContent = it.source; }
+      b.appendChild(s);
+    }
+    li.appendChild(b);
+    list.appendChild(li);
+  });
+
+  var counts = {};
+  items.forEach(function (it) { var c = it.category || "その他"; counts[c] = (counts[c] || 0) + 1; });
+  var current = "すべて";
+  try { current = localStorage.getItem("itnews-filter") || "すべて"; } catch (e) {}
+  if (current !== "すべて" && !counts[current]) current = "すべて";
+
+  function makeChip(label, n, color) {
+    var c = el("button", "chip");
+    c.type = "button";
+    if (color) { c.style.setProperty("--dot", color); c.appendChild(el("i")); }
+    c.appendChild(document.createTextNode(label));
+    c.appendChild(el("span", "n", String(n)));
+    c.dataset.cat = label;
+    c.addEventListener("click", function () { apply(label); });
+    filters.appendChild(c);
+  }
+  makeChip("すべて", items.length, null);
+  Object.keys(CATS).forEach(function (k) { if (counts[k]) makeChip(k, counts[k], dotVar(k)); });
+  Object.keys(counts).forEach(function (k) { if (!CATS[k]) makeChip(k, counts[k], dotVar(k)); });
+
+  function apply(cat) {
+    current = cat;
+    try { localStorage.setItem("itnews-filter", cat); } catch (e) {}
+    Array.prototype.forEach.call(filters.children, function (c) {
+      c.setAttribute("aria-pressed", c.dataset.cat === cat ? "true" : "false");
+    });
+    Array.prototype.forEach.call(list.children, function (li) {
+      li.hidden = !(cat === "すべて" || li.dataset.cat === cat);
+    });
+  }
+  apply(current);
+})();
+</script>
+</body>
+</html>
