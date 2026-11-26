@@ -1,0 +1,107 @@
+{
+  "date": "2026-11-27",
+  "generated_at": "2026-11-27T05:52+09:00",
+  "trend": "AIが攻撃の自動化と脆弱性の大量発見の両方を加速させ、パッチ量の急増やGitHub上のプロンプトインジェクションなど防御側の負担が目に見えて増えています。一方でNVIDIAの東南アジア向け出荷停止など、AI半導体をめぐる輸出規制の締め付けも続いています。",
+  "items": [
+    {
+      "rank": 1,
+      "category": "セキュリティ",
+      "title": "中国・北朝鮮の国家系ハッカーがAI攻撃フレームワーク「ARTEX」を悪用、Microsoftが警告",
+      "summary": "Microsoftによると、7月に公開されたオープンソースのAIペネトレーションテスト基盤「ARTEX」が、Salt TyphoonやOnyx Sleetなど中国・北朝鮮の攻撃グループに使われている。偵察から認証情報攻撃、侵入までをAIエージェントが自動で連鎖させ、3時間足らずで特権アクセスに達した例もある。ConnectWiseの侵害を足がかりに2,250以上のMicrosoft 365テナントへのサインイン試行も確認された。",
+      "why": "新しい手口ではなく既知の攻撃を機械の速度で回すため、弱い認証や放置された設定は数分で突破される前提で守りを見直す必要があります。",
+      "source": "The Register",
+      "url": "https://www.theregister.com/security/2026/11/26/microsoft-hackers-in-china-n-korea-using-artex-ai-tool-to-break-into-global-tech-systems/5312433",
+      "published": "2026-11-27"
+    },
+    {
+      "rank": 2,
+      "category": "セキュリティ",
+      "title": "Microsoftの11月月例更新は脆弱性1093件、AIで発見数が1年で10倍規模に",
+      "summary": "Microsoftが11月の月例更新で修正した脆弱性は1093件で、うち63件が「緊急」、Outlookのなりすまし脆弱性は公開時点で悪用済みだった。2026年の同社の修正件数は5100件を超え、1年前の月100件前後から急増している。業界全体でも今年見つかった脆弱性は10万件を超え、AIによる発見の加速が背景にあるとされる。",
+      "why": "Windows環境の開発・運用では、更新の検証と適用の手間が桁違いに増えるため、パッチ適用の優先順位付けと自動化が欠かせなくなります。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/26/2000003446/",
+      "published": "2026-11-26"
+    },
+    {
+      "rank": 3,
+      "category": "ハード",
+      "title": "NVIDIA、マレーシアやシンガポールなど東南アジア4カ国へのサーバー出荷を一時停止",
+      "summary": "WSJの報道によると、NVIDIAはDellやSuper Microなどの製造パートナーに対し、マレーシア、シンガポール、タイ、インドネシア向けのサーバー出荷を期限を定めず止めるよう指示した。現地パートナーが米国の輸出規制を守れているかを確認するためで、中国企業がこれらの国のデータセンター経由でNVIDIAのチップを遠隔利用していた抜け穴が背景にある。",
+      "why": "東南アジアのクラウドやデータセンターでGPU資源を調達する計画には、供給の遅れや規制強化を織り込む必要があります。",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/11/26/nvidia-hits-pause-on-chip-shipments-to-southeast-asia/",
+      "published": "2026-11-27"
+    },
+    {
+      "rank": 4,
+      "category": "セキュリティ",
+      "title": "PAN-OSでLinuxカーネル脆弱性「Fragnesia」の悪用を確認、Palo Altoが警告",
+      "summary": "Palo Alto Networksは、PHPの脆弱性「PHP2Shell」（CVE-2026-109618/109619）とLinuxカーネルの権限昇格脆弱性「Fragnesia」（CVE-2026-46300）を連鎖させた攻撃が、管理インターフェースをインターネットに公開したPAN-OS機器を狙っていると公表した。リモートでコードを実行したうえでroot権限を奪う手口で、日本のサーバーも標的に含まれていた。修正版が公開されている。",
+      "why": "ファイアウォールの管理画面を外部に出している組織は、更新の適用とアクセス制限を急ぐべき状況です。",
+      "source": "BleepingComputer",
+      "url": "https://www.bleepingcomputer.com/news/security/palo-alto-networks-warns-of-fragnesia-flaw-exploited-in-pan-os-attacks/",
+      "published": "2026-11-26"
+    },
+    {
+      "rank": 5,
+      "category": "その他",
+      "title": "Windows Server 2025の11月ホットパッチでクラッシュ、修正パッチKB5138318を臨時公開",
+      "summary": "11月のWindows Server 2025向けセキュリティ更新（ホットパッチ）に、ルーター広告を有効にした環境で期限付きIPv6ルートが失効するとエラー0x139（KERNEL_SECURITY_CHECK_FAILURE）で停止する不具合があった。Microsoftは11月25日に修正用のホットパッチKB5138318を定例外で公開し、再起動なしで適用できる。",
+      "why": "IPv6を使うWindows Server 2025の開発・検証環境や本番サーバーで原因不明の停止が出ていれば、まずこの更新を確認すべきです。",
+      "source": "The Register",
+      "url": "https://www.theregister.com/os-platforms/2026/11/26/microsoft-hotpatches-hotpatch-that-could-crash-windows-server-2025/5312301",
+      "published": "2026-11-26"
+    },
+    {
+      "rank": 6,
+      "category": "AI",
+      "title": "先回りして動く自律型AIエージェント「Claude Duet」、日本でも提供開始",
+      "summary": "Anthropicは、ユーザーの指示を待たずに必要な対応を知らせてタスクを進めるエージェントアプリ「Claude Duet」の提供地域に日本を加えた。Pro/Max/Ultraプラン向けのリサーチプレビューで追加料金はなく、iOS/Androidアプリとclaude.aiから使える。クラウド上の専用仮想マシンで動くため、端末の電源を切っていても作業が続く。",
+      "why": "常駐型のAIエージェントが国内でも使えるようになり、業務の定型作業をどこまで任せられるか試せる段階に入りました。",
+      "source": "PC Watch",
+      "url": "https://pc.watch.impress.co.jp/docs/news/2159488.html",
+      "published": "2026-11-26"
+    },
+    {
+      "rank": 7,
+      "category": "セキュリティ",
+      "title": "GitHub上に人に見えないAI向け隠し命令、1億4500万件の調査で実態判明",
+      "summary": "Radwareとテクニオン・イスラエル工科大学の研究チームが、GitHubの投稿やREADME約1億4500万件を分析し、画面には表示されないがAIには読まれる隠しテキストの埋め込み状況を調べた。IssueやPRをAIエージェントが自動処理する流れを狙った間接的プロンプトインジェクションの例があり、小型モデルの操作を狙うものも見つかった。",
+      "why": "リポジトリでAIエージェントにIssue仕分けやレビューを任せている場合、外部から書き込まれたテキストを信用しない設計が必要です。",
+      "source": "ITmedia NEWS",
+      "url": "https://www.itmedia.co.jp/news/article/2611/26/2000003460/",
+      "published": "2026-11-26"
+    },
+    {
+      "rank": 8,
+      "category": "クラウド",
+      "title": "Rackspace、侵害を受けた低価格クラウド「Spot」を12月8日で終了",
+      "summary": "Rackspaceは、11月17日に漏えいした認証情報を使われて約22時間にわたり侵入された低価格クラウド「Rackspace Spot」の提供終了を決めた。12月8日17時（米中部時間）に稼働中のワークロードは停止され、データにもアクセスできなくなる。利用者は2週間で移行と認証情報の更新を迫られている。",
+      "why": "安価なクラウドでも侵害を機にサービスごと消える可能性があり、移行手順とバックアップを常に用意しておく重要性を示しています。",
+      "source": "The Register",
+      "url": "https://www.theregister.com/cyber-crime/2026/11/26/rackspace-pulls-plug-on-spot-cloud-service-after-security-breach/5312352",
+      "published": "2026-11-26"
+    },
+    {
+      "rank": 9,
+      "category": "ハード",
+      "title": "キオクシアとNVIDIA、SSDでGPUメモリをペタバイト級に拡張する実証を開始",
+      "summary": "キオクシアはNVIDIAと共同で、NVMe SSDとNVIDIAのライブラリ「SCADA」を組み合わせ、GPUのHBM容量不足を補う実証を始めた。GB200 NVL72の各ノードに7.68TBの「KIOXIA XD8」を8台、計144台載せて約1.1PBの拡張容量を確保し、512バイト単位のランダムアクセスで約2兆個のベクトルを扱えるか検証する。",
+      "why": "大規模なベクトル検索やRAGでメモリ容量がボトルネックになる問題に、ストレージ側から解決策が出てきています。",
+      "source": "PC Watch",
+      "url": "https://pc.watch.impress.co.jp/docs/news/2159567.html",
+      "published": "2026-11-26"
+    },
+    {
+      "rank": 10,
+      "category": "開発",
+      "title": "Google Play、収益を得るAndroid開発者に住所と電話番号の公開を義務化へ",
+      "summary": "Googleは、EUのデジタルサービス法に対応するため、アプリで収益を得る「事業者」に該当する開発者に住所と電話番号の公開を求める。開発者は2027年2月1日までに事業者かどうかを申告する必要があり、公開は全世界に適用される。個人開発者からはプライバシーへの懸念が出ている。",
+      "why": "個人でAndroidアプリを配布・販売している開発者は、期限までに申告と公開する連絡先の準備が必要です。",
+      "source": "The Verge",
+      "url": "https://www.theverge.com/tech/1043228/android-play-store-google-developer-address-eu",
+      "published": "2026-11-27"
+    }
+  ]
+}
