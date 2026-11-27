@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ITニュース朝刊</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Kaku+Gothic+New:wght@700;900&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* 1カラムの読み物。左に順位、右に本文。上部にカテゴリ絞り込み */
+:root {
+  --bg: #f2f4f7;
+  --surface: #ffffff;
+  --ink: #16202a;
+  --muted: #5a6572;
+  --line: #dce1e8;
+  --accent: #1f5fbf;
+  --accent-soft: #e4ecf8;
+  --c-ai: #7445d1;
+  --c-sec: #c2402b;
+  --c-cloud: #17807f;
+  --c-hw: #9a6510;
+  --c-biz: #3b6d2d;
+  --c-dev: #1f5fbf;
+  --c-other: #6b7480;
+  --f-display: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --f-body: "BIZ UDPGothic", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1318; --surface: #151c23; --ink: #e4e9ef; --muted: #96a2ae; --line: #252f39;
+    --accent: #72a6f3; --accent-soft: #1b2a3f;
+    --c-ai: #a98cf2; --c-sec: #f08672; --c-cloud: #5cc6c4; --c-hw: #e2ab4f; --c-biz: #8cc475; --c-dev: #72a6f3; --c-other: #9aa4ae;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1318; --surface: #151c23; --ink: #e4e9ef; --muted: #96a2ae; --line: #252f39;
+  --accent: #72a6f3; --accent-soft: #1b2a3f;
+  --c-ai: #a98cf2; --c-sec: #f08672; --c-cloud: #5cc6c4; --c-hw: #e2ab4f; --c-biz: #8cc475; --c-dev: #72a6f3; --c-other: #9aa4ae;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 15px;
+  line-height: 1.75;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+}
+.wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+
+header { display: flex; flex-direction: column; gap: 10px; }
+.eyebrow {
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em;
+  color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 14px;
+}
+.eyebrow b { color: var(--accent); font-weight: 700; }
+h1 {
+  font-family: var(--f-display); font-weight: 900; font-size: clamp(30px, 7vw, 44px);
+  line-height: 1.15; margin: 0; letter-spacing: .01em; text-wrap: balance;
+}
+.trend {
+  margin: 4px 0 0; padding: 12px 14px; background: var(--accent-soft);
+  border-radius: 8px; font-size: 15px; line-height: 1.7;
+}
+.trend span { font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; color: var(--accent); display: block; margin-bottom: 2px; }
+
+.filters { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+.filters::-webkit-scrollbar { display: none; }
+.chip {
+  flex: none; font: 700 13px/1 var(--f-body); color: var(--muted);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+  padding: 8px 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
+}
+.chip i { width: 8px; height: 8px; border-radius: 50%; background: var(--dot, var(--muted)); }
+.chip .n { font-family: var(--f-mono); font-size: 11px; font-weight: 500; }
+.chip[aria-pressed="true"] { color: var(--surface); background: var(--ink); border-color: var(--ink); }
+.chip[aria-pressed="true"] i { background: var(--surface); }
+.chip:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+ol.news { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.item { display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding: 20px 18px; border-top: 1px solid var(--line); }
+.item:first-child { border-top: 0; }
+.rank { font-family: var(--f-mono); font-weight: 700; font-size: 22px; line-height: 1.2; color: var(--muted); font-variant-numeric: tabular-nums; }
+.item:nth-child(-n+3) .rank { color: var(--accent); }
+.body { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; font-size: 12px; color: var(--muted); }
+.cat { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; color: var(--dot); }
+.cat::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dot); }
+.date { font-family: var(--f-mono); font-size: 11.5px; }
+h2 { font-family: var(--f-display); font-weight: 700; font-size: 18px; line-height: 1.45; margin: 0; text-wrap: balance; overflow-wrap: anywhere; }
+h2 a { color: inherit; text-decoration: none; }
+h2 a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+.sum { margin: 0; overflow-wrap: anywhere; }
+.why { margin: 2px 0 0; font-size: 13.5px; color: var(--muted); padding-left: 10px; border-left: 2px solid var(--line); }
+.why b { color: var(--ink); font-weight: 700; }
+.src { font-size: 12.5px; }
+.src a { color: var(--accent); text-decoration: none; overflow-wrap: anywhere; }
+.src a:hover { text-decoration: underline; }
+
+.empty { padding: 40px 22px; text-align: left; display: flex; flex-direction: column; gap: 8px; }
+.empty strong { font-family: var(--f-display); font-size: 18px; }
+.empty p { margin: 0; color: var(--muted); }
+
+footer { font-size: 12px; color: var(--muted); line-height: 1.7; }
+@media (max-width: 480px) {
+  .item { grid-template-columns: 30px 1fr; gap: 10px; padding: 18px 14px; }
+  .rank { font-size: 18px; }
+  h2 { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+<script type="application/json" id="news-data">{"date": "2026-11-28", "generated_at": "2026-11-28T05:50+09:00", "trend": "1Password、SAP、GMOペパボと、社員のGitHubアカウントや内部システムを足がかりにした大手の侵害が一斉に表面化しました。一方でMCPやLinuxカーネルにAIエージェント向け「スキル」の仕組みが入り始め、開発の現場でもエージェント前提の整備が進んでいます。", "items": [{"rank": 1, "category": "セキュリティ", "title": "1Passwordが侵害を公表、社員のGitHub経由でソースコードと顧客情報が流出", "summary": "1Passwordは、攻撃者が社員の業務用GitHubアカウントを乗っ取って非公開ソースコードを持ち出し、バックエンドに不正コードを仕込んで顧客の氏名・メールアドレス・アカウントIDなどを抜き取ったと公表しました。調査は11月19日に開始。CI/CD基盤にも侵入されたため認証情報をローテーションしたとしていますが、保管庫（Vault）の中身にはアクセスされておらず、アプリやブラウザ拡張にも影響はないと説明しています。", "why": "パスワード管理の大手でも開発者アカウント1つからCI/CDと本番まで届いた事例で、自社のGitHub権限やCIのシークレット管理を見直す材料になります。", "source": "The Register", "url": "https://www.theregister.com/security/2026/11/26/hackers-help-themselves-to-1passwords-source-code-and-customer-data/5312317", "published": "2026-11-26"}, {"rank": 2, "category": "セキュリティ", "title": "監視ツールCactiに未修正のゼロデイ、認証なしでコマンド実行できるPoCが公開", "summary": "ネットワーク監視ツールCactiに、ゲストアカウントが有効な環境なら認証なしでHTTPリクエスト4回だけでサーバー上のコマンドを実行できる脆弱性「4HTTP2SHELL」が見つかり、実証コードが公開されました。入力検証の甘さからSQLを注入し、リアルタイムポーラーが実行するコマンドを書き換える手口です。修正版はまだ出ていません。", "why": "Cactiは監視対象機器の認証情報やSNMPのパスフレーズを保持しているため、侵入されると社内ネットワーク全体への足がかりになります。当面はゲストアクセスを無効にしておくべきです。", "source": "BleepingComputer", "url": "https://www.bleepingcomputer.com/news/security/unpatched-cacti-zero-day-with-public-poc-gives-remote-code-execution/", "published": "2026-11-27"}, {"rank": 3, "category": "その他", "title": "Windows Server 2028でWSUSの役割を削除、Microsoftが正式に表明", "summary": "Microsoftは、次期Windows Server 2028で更新プログラム配信用のWSUSサーバーの役割を削除すると、サポート文書を更新して明らかにしました。2024年9月に非推奨化していましたが、機能そのものがなくなります。Windows Server 2025までのWSUSはサポート期間中使い続けられ、Windows Server 2028向けの更新もそこから配信できます。", "why": "社内や閉域網のWindows PCをWSUSで管理している職場では、Intune・Windows Autopatch・Azure Update Managerなどへの移行計画が必要になります。", "source": "BleepingComputer", "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-removes-wsus-server-role-in-windows-server-2028/", "published": "2026-11-27"}, {"rank": 4, "category": "セキュリティ", "title": "SAPがセキュリティインシデントを認める、GitHub上のソースコードが改ざんされた疑い", "summary": "独Der Spiegelが報じた社内メモによると、SAPは「Project Granite」と呼ぶサイバー攻撃を受け、社員の認証トークンを盗まれてGitHub上のソースコードを複製・改変されたとされます。SAPはBleepingComputerに対して不審な活動を確認して対処したと認め、顧客の業務データへの不正アクセスの証拠は今のところないと説明しました。", "why": "SAPのGitHubリポジトリから取得しているコードや更新を使っている場合、供給元が改ざんされた可能性を前提に追加の案内を確認しておく必要があります。", "source": "BleepingComputer", "url": "https://www.bleepingcomputer.com/news/security/sap-confirms-security-incident-after-suspicious-github-activity/", "published": "2026-11-27"}, {"rank": 5, "category": "セキュリティ", "title": "ロリポップ！の顧客情報51万件が漏えいの可能性、一部は平文パスワードも", "summary": "GMOペパボは内部システムへの不正アクセスで「ロリポップ！レンタルサーバー」などの顧客情報51万6564件が持ち出された可能性があると発表しました。氏名やメールアドレスなどに加え、平文で保存していたFTP・WebDAVの仮パスワード8322件やBasic認証のID・パスワード10万5608件の漏えいも確認され、強制リセットしたとしています。クレジットカードや口座情報は含まれていません。", "why": "国内で広く使われるレンタルサーバーで平文パスワードが漏れており、同じパスワードを使い回している場合は他サービスを含めて変更が必要です。", "source": "INTERNET Watch", "url": "https://internet.watch.impress.co.jp/docs/news/2160136.html", "published": "2026-11-27"}, {"rank": 6, "category": "AI", "title": "MCPに「Skills over MCP」がβ版で追加、使い方の手順もサーバーから配信", "summary": "AIエージェントと外部ツールをつなぐMCP（Model Context Protocol）に、ツールの接続だけでなくその使い方をまとめた「スキル」をMCPサーバーから提供できる新機能がβ版として加わりました。エージェントは常に最新のスキルを取得でき、必要なときだけ読み込むのでコンテキストの消費も抑えられます。", "why": "社内ツールをMCPサーバーとして公開している場合、使い方のノウハウを各利用者のプロンプトに書かせずサーバー側でまとめて配布できるようになります。", "source": "ITmedia NEWS（Publickey転載）", "url": "https://www.itmedia.co.jp/news/article/2611/27/2000003513/", "published": "2026-11-27"}, {"rank": 7, "category": "開発", "title": "ClaudeのMessages APIをPythonからRustへ無停止で移行、CPU使用率を約70%削減", "summary": "Anthropicは、Claude CodeなどがClaudeを呼び出すMessages APIを、サービスを止めずにPythonからRustで作り直したと明らかにしました。1リクエストあたりのCPU使用率は約70%、メモリ使用量は80%以上減り、最初のトークンが出るまでの時間も中央値で約20%短くなったとしています。移行作業にはClaude自身を使い、2024年初頭から約1800倍に増えたトラフィックに対応する狙いです。", "why": "成長したPythonサービスを稼働させたまま別言語へ置き換えた実例で、AIを使った大規模リライトの効果を示す具体的な数字になっています。", "source": "PC Watch", "url": "https://pc.watch.impress.co.jp/docs/news/2159943.html", "published": "2026-11-27"}, {"rank": 8, "category": "開発", "title": "Linux 7.5にAIエージェント向け「Skills」を導入へ、NVIDIAのSasha Levin氏がパッチ提出", "summary": "Stable/LTSカーネルの共同メンテナーでNVIDIA所属のSasha Levin氏が、Linux 7.5に向けてAIエージェントにカーネル開発作業をさせるための手順書「Skills」一式をLinus Torvalds氏に送る意向を示しました。Fixesタグの判定、Stableへの適用判断、類似バグの検索、コミットメッセージ作成、KUnitテスト作成の5つが予定されています。", "why": "コードを自由に書かせるのではなく開発ルールを守らせる使い方で、大規模OSSがAIエージェントの貢献をどう受け入れるかの先例になりそうです。", "source": "gihyo.jp", "url": "https://gihyo.jp/article/2026/11/daily-linux-261127", "published": "2026-11-27"}, {"rank": 9, "category": "ビジネス", "title": "米政府によるIntel株10%取得の舞台裏、「交渉ではない」と迫った記録が訴訟で判明", "summary": "2025年8月に米政府がIntel株の10%を取得した件で、商務省の弁護士がIntelのCFOに「これは交渉だと思わないように」と伝え、拒否すれば予測できない結果になると示唆していたことが、連邦訴訟に含まれた社内記録から明らかになりました。約束された補助金の支給と引き換えに株式を差し出させる形だったと報じられています。", "why": "半導体大手への政府の関与がどこまで強いかを示す内容で、米国の補助金や輸出規制をめぐるサプライチェーンの先行きを読む材料になります。", "source": "Ars Technica", "url": "https://arstechnica.com/tech-policy/2026/11/intel-faced-a-choice-give-trump-10-or-face-the-consequences/", "published": "2026-11-27"}, {"rank": 10, "category": "クラウド", "title": "さくらのクラウドが東京第三ゾーンを新設、新ネットワーク基盤とDBサービスも投入", "summary": "さくらインターネットは「SAKURA DEKIRU Conference 2026」で、さくらのクラウドの東京リージョンに第三ゾーンを新設すると発表しました。これで石狩・東京ともに3ゾーン構成になります。物理機器を模した従来の設定を抽象化した新しいネットワーク基盤や、新しいデータベースサービスの投入も明らかにしました。", "why": "国産クラウドで東京でもマルチゾーン構成が組めるようになり、データの国内保管が求められるシステムで選択肢が広がります。", "source": "Publickey", "url": "https://www.publickey1.jp/blog/26/post_310.html", "published": "2026-11-27"}]}</script>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow" id="eyebrow"><b>IT DAILY</b><span id="dateLabel">—</span><span id="genLabel"></span></div>
+    <h1>ITニュース朝刊</h1>
+    <p class="trend" id="trend" hidden><span>TODAY'S TREND</span><em id="trendText" style="font-style:normal"></em></p>
+  </header>
+
+  <nav class="filters" id="filters" aria-label="カテゴリで絞り込み"></nav>
+
+  <ol class="news" id="list"></ol>
+
+  <footer>
+    <a href="../archive.html" style="color:var(--accent)">過去の号を見る</a><br>
+    毎朝6時に国内外のIT・テック系ニュースから重要度の高い10件を選び、要約して更新しています。要約はAIによるもので、詳細や正確な数値は各リンク先の元記事で確認してください。
+  </footer>
+</div>
+
+<script>
+(function () {
+  var CATS = {
+    "AI": "--c-ai", "セキュリティ": "--c-sec", "クラウド": "--c-cloud",
+    "ハード": "--c-hw", "ビジネス": "--c-biz", "開発": "--c-dev", "その他": "--c-other"
+  };
+  var data;
+  try { data = JSON.parse(document.getElementById("news-data").textContent); }
+  catch (e) { data = { items: [] }; }
+  var items = (data.items || []).slice().sort(function (a, b) { return (a.rank || 99) - (b.rank || 99); });
+
+  var WD = ["日", "月", "火", "水", "木", "金", "土"];
+  function fmtDate(s) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s || "");
+    if (!m) return "";
+    var d = new Date(+m[1], +m[2] - 1, +m[3]);
+    return m[1] + "." + m[2] + "." + m[3] + " (" + WD[d.getDay()] + ")";
+  }
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function dotVar(cat) { return "var(" + (CATS[cat] || "--c-other") + ")"; }
+
+  document.getElementById("dateLabel").textContent = fmtDate(data.date) || "初回更新待ち";
+  var g = /T(\d{2}:\d{2})/.exec(data.generated_at || "");
+  if (g) document.getElementById("genLabel").textContent = g[1] + " 更新";
+  if (data.trend) {
+    document.getElementById("trendText").textContent = data.trend;
+    document.getElementById("trend").hidden = false;
+  }
+
+  var list = document.getElementById("list");
+  var filters = document.getElementById("filters");
+
+  if (!items.length) {
+    filters.hidden = true;
+    var li = el("li", "empty");
+    li.appendChild(el("strong", null, "最初の号を準備中です"));
+    li.appendChild(el("p", null, "毎朝6時に、その日のITニュース上位10件がここに並びます。カテゴリ別に絞り込み、見出しから元記事に移動できます。"));
+    list.appendChild(li);
+    return;
+  }
+
+  items.forEach(function (it, i) {
+    var li = el("li", "item");
+    li.dataset.cat = it.category || "その他";
+    li.style.setProperty("--dot", dotVar(it.category));
+    li.appendChild(el("div", "rank", String(it.rank || i + 1).padStart(2, "0")));
+    var b = el("div", "body");
+    var meta = el("div", "meta");
+    meta.appendChild(el("span", "cat", it.category || "その他"));
+    if (it.published) meta.appendChild(el("span", "date", it.published.replace(/-/g, ".")));
+    b.appendChild(meta);
+    var h = el("h2");
+    if (it.url) {
+      var a = el("a", null, it.title);
+      a.href = it.url; a.target = "_blank"; a.rel = "noopener";
+      h.appendChild(a);
+    } else { h.textContent = it.title; }
+    b.appendChild(h);
+    if (it.summary) b.appendChild(el("p", "sum", it.summary));
+    if (it.why) {
+      var w = el("p", "why");
+      w.appendChild(el("b", null, "注目点 "));
+      w.appendChild(document.createTextNode(it.why));
+      b.appendChild(w);
+    }
+    if (it.source || it.url) {
+      var s = el("div", "src");
+      if (it.url) {
+        var sa = el("a", null, (it.source || "元記事") + " で読む →");
+        sa.href = it.url; sa.target = "_blank"; sa.rel = "noopener";
+        s.appendChild(sa);
+      } else { s.textContent = it.source; }
+      b.appendChild(s);
+    }
+    li.appendChild(b);
+    list.appendChild(li);
+  });
+
+  var counts = {};
+  items.forEach(function (it) { var c = it.category || "その他"; counts[c] = (counts[c] || 0) + 1; });
+  var current = "すべて";
+  try { current = localStorage.getItem("itnews-filter") || "すべて"; } catch (e) {}
+  if (current !== "すべて" && !counts[current]) current = "すべて";
+
+  function makeChip(label, n, color) {
+    var c = el("button", "chip");
+    c.type = "button";
+    if (color) { c.style.setProperty("--dot", color); c.appendChild(el("i")); }
+    c.appendChild(document.createTextNode(label));
+    c.appendChild(el("span", "n", String(n)));
+    c.dataset.cat = label;
+    c.addEventListener("click", function () { apply(label); });
+    filters.appendChild(c);
+  }
+  makeChip("すべて", items.length, null);
+  Object.keys(CATS).forEach(function (k) { if (counts[k]) makeChip(k, counts[k], dotVar(k)); });
+  Object.keys(counts).forEach(function (k) { if (!CATS[k]) makeChip(k, counts[k], dotVar(k)); });
+
+  function apply(cat) {
+    current = cat;
+    try { localStorage.setItem("itnews-filter", cat); } catch (e) {}
+    Array.prototype.forEach.call(filters.children, function (c) {
+      c.setAttribute("aria-pressed", c.dataset.cat === cat ? "true" : "false");
+    });
+    Array.prototype.forEach.call(list.children, function (li) {
+      li.hidden = !(cat === "すべて" || li.dataset.cat === cat);
+    });
+  }
+  apply(current);
+})();
+</script>
+</body>
+</html>
